@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>639018111947-q12c2pnjo7ec7fubnutof2q7coa8qciq.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.639018111947-q12c2pnjo7ec7fubnutof2q7coa8qciq</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBxnfumVN_cvYvDnowbuAA2EqWevjUA-Jo</string>
+	<key>GCM_SENDER_ID</key>
+	<string>639018111947</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>vn.wellspring.phhs</string>
+	<key>PROJECT_ID</key>
+	<string>monitor-app-a2abc</string>
+	<key>STORAGE_BUCKET</key>
+	<string>monitor-app-a2abc.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:639018111947:ios:9ea97c8d9e7146d9165c4e</string>
+</dict>
+</plist>

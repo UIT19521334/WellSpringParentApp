@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "639018111947",
+    "project_id": "monitor-app-a2abc",
+    "storage_bucket": "monitor-app-a2abc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639018111947:android:8787d83297a5d9fb165c4e",
+        "android_client_info": {
+          "package_name": "vn.wellspring.monitorapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639018111947-rjeqrg9pfuqi44m1g66npha35h557iid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_6eWDy6rhg_lGqfL1RbeWt-vuBF7LRY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639018111947-rjeqrg9pfuqi44m1g66npha35h557iid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "639018111947-30e2hff2mulseeppbl58t88pnv2g2vhv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.wellspring.phhsapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:639018111947:android:ea975fdabdf8fc19165c4e",
+        "android_client_info": {
+          "package_name": "vn.wellspring.phhs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "639018111947-rjeqrg9pfuqi44m1g66npha35h557iid.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_6eWDy6rhg_lGqfL1RbeWt-vuBF7LRY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "639018111947-rjeqrg9pfuqi44m1g66npha35h557iid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "639018111947-30e2hff2mulseeppbl58t88pnv2g2vhv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vn.wellspring.phhsapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

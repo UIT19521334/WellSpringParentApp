@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  wellspring_phhs
+
+  Created by Margosh Le on 20/08/2021.
+  
+*/
+"NSCameraUsageDescription" = "Wellspring PHHS needs access to the camera to create a leaving.";
+"NSMicrophoneUsageDescription" = "Wellspring PHHS needs access to the microphone to take videos.";
+"NSPhotoLibraryAddUsageDescription" = "Wellspring PHHS needs access to the photo library to save photo.";
+"NSPhotoLibraryUsageDescription" = "Wellspring PHHS needs access to your photo gallery to create a leaving .";

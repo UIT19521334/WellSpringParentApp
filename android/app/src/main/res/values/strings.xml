@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Wellspring PHHS</string>
+    <string moduleConfig="true" name="CodePushDeploymentKey">RKA0-ALQn_6-OZY5fRCHC2WFVj0VG5wH7ulAT</string>
+</resources>

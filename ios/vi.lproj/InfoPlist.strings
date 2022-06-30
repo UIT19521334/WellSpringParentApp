@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  wellspring_phhs
+
+  Created by Margosh Le on 20/08/2021.
+  
+*/
+"NSCameraUsageDescription" = "Wellspring PHHS cần quyền truy cập vào camera của bạn để tạo đơn nghỉ phép.";
+"NSMicrophoneUsageDescription" = "Wellspring PHHS cần quyền truy cập vào microphone của bạn để quay video.";
+"NSPhotoLibraryAddUsageDescription" = "Wellspring PHHS cần quyền truy cập vào thư viện ảnh để lưu ảnh về máy.";
+"NSPhotoLibraryUsageDescription" = "Wellspring PHHS cần quyền truy cập vào thư viện ảnh của bạn để tạo đơn nghỉ phép.";

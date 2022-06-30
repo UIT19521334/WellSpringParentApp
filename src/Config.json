@@ -1,0 +1,19 @@
+{
+    "appName" : "Wellspring PHHS",
+    "appVersion": {
+        "android": "v1.0.0",
+        "ios": "v1.0.0"
+    },
+    "appMode": "dev",
+    "dev": {
+        "serverUrl": "http://wellspring.giaiphapcrm.vn"
+    },
+    "beta": {
+        "serverUrl": "http://wellspring.giaiphapcrm.vn"
+    },
+    "prod": {
+        "serverUrl": "http://crm.wellspring.edu.vn"
+    },
+    "apiUrl": "/api/AppAPI/ParentApp/ParentApi.php",
+    "pingUrl": "/robots.txt"
+}
