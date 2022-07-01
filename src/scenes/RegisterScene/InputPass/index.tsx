@@ -1,32 +1,33 @@
-import { Text, ImageBackground, Image, Alert } from 'react-native'
-import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal } from '../../../utils/sizes'
-import { Center, View, VStack, HStack, Input, Button } from 'native-base'
-import { FontSize } from '../../../utils/fontSize'
-import { systemColor, UIColor } from '../../../utils/colors'
-import { Icon } from '../../../themes/Icons/IconCustom'
-import React, { useState } from 'react'
-import userData from "../../../assets/json/user.json"
-import Global from '../../../Global'
+import { Text, ImageBackground, Image, Alert } from 'react-native';
+import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal } from '../../../utils/sizes';
+import { Center, View, VStack, HStack, Input, Button } from 'native-base';
+import { FontSize } from '../../../utils/fontSize';
+import { systemColor, UIColor } from '../../../utils/colors';
+import { Icon } from '../../../themes/Icons/IconCustom';
+import React, { useState } from 'react';
+import userData from "../../../assets/json/user.json";
+import Global from '../../../Global';
+import { getLabel } from '../../../utils/commons';
+
 const InputPassword = ({ }) => {
 
 	// get show password
 	const [showNewPassword, setShowNewPassword] = useState<true|false>(false)
 	
-
 	// check login information
 	const [newPassword, setNewPassword] = useState<String|null>("")
 	
-
-	// handle login
-
+	// handle register
 	const handleRegister = () => {
-		if (newPassword) {
-			Global.navigationRef?.navigate('Register')
-		} else {
-			Alert.alert("Warning", "Please input your new password", [
-				{ text: "OK" },
-			]);
-		}
+		if (!newPassword) {
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('forgot_password.msg_new_password_empty'), 
+				[{ text: "OK" },]
+			);
+			return;	
+		} 
+		Global.navigationRef?.navigate('Register')
 	};
 
 	return (
@@ -80,7 +81,7 @@ const InputPassword = ({ }) => {
 							fontWeight: '900',
 							color: systemColor(UIColor.black)
 						}}
-					>Nhập mật khẩu mới</Text>
+					>{getLabel('forgot_password.label_enter_new_password')}</Text>
 					<Text
 						style={{
 							fontSize: FontSize.h5,
@@ -89,12 +90,12 @@ const InputPassword = ({ }) => {
 							color: systemColor(UIColor.black2)
 						}}
 					>
-						Tạo mật khẩu mới để đăng nhập cho lần sau 
+						{getLabel('register.label_create_new_password')}
 					</Text>
 					<Input
 						size='md'
 						variant="underlined"
-						placeholder="Mật khẩu mới"
+						placeholder={getLabel('register.placeholder_new_password')}
 						type={showNewPassword ? "text" : "password"}
 						onChangeText={(value) => {
 							setNewPassword(value);
@@ -126,7 +127,7 @@ const InputPassword = ({ }) => {
 								fontWeight: "600",
 								color: systemColor(UIColor.white)
 							}}
-						>Tiếp tục</Text>
+						>{getLabel('register.btn_continue')}</Text>
 					</Button>
 				</View>
 			</View>

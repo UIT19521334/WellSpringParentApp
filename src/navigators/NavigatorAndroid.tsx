@@ -15,6 +15,9 @@ import notifee, { EventType } from '@notifee/react-native';
 import WelcomeScene from "../scenes/WelcomeScene";
 import LoginScene from '../scenes/LoginScene';
 import HomeScene from '../scenes/HomeScene';
+import AccountScene from '../scenes/AccountScene';
+import NotificationScene from '../scenes/NotificationScene';
+import ContactScene from '../scenes/ContactScene';
 import ForgetPasswordScene from '../scenes/ForgetPasswordScene/';
 import ForgetOTP from '../scenes/ForgetPasswordScene/ForgetOTP/';
 import NewPassword from '../scenes/ForgetPasswordScene/NewPassword';
@@ -22,6 +25,7 @@ import RegisterScene from '../scenes/RegisterScene';
 import RegisterOTP from '../scenes/RegisterScene/RegisterOTP';
 import InputPassword from '../scenes/RegisterScene/InputPass';
 import Register from '../scenes/RegisterScene/Register/';
+import BottomTabAndroid from '../components/BottomTabAndroid';
 const Stack = createStackNavigator();
 
 const UnAuthenticationStack = () => {
@@ -139,7 +143,7 @@ const MainStack = () => {
                         gestureEnabled: false,
                     }}
                 />
-{/*
+
                 <Stack.Screen
                     name='ContactScene'
                     component={ContactScene}
@@ -167,7 +171,7 @@ const MainStack = () => {
                         gestureEnabled: false,
                     }}
                 />
-
+{/*
                 <Stack.Screen
                     name='AboutScene'
                     component={AboutScene}
@@ -323,7 +327,7 @@ const MainStack = () => {
 
             </Stack.Navigator>
 
-            {/* <BottomTabAndroid /> */}
+            <BottomTabAndroid />
         </View>
     )
 }

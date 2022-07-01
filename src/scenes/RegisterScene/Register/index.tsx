@@ -1,14 +1,18 @@
-import { Text, ImageBackground, Image, Alert, ScrollView } from 'react-native'
-import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal } from '../../../utils/sizes'
-import { Center, View, VStack, HStack, Input, Button } from 'native-base'
-import { FontSize } from '../../../utils/fontSize'
-import { systemColor, UIColor } from '../../../utils/colors'
-import { Icon } from '../../../themes/Icons/IconCustom'
-import React, { useState } from 'react'
-import Global from '../../../Global'
-import RegisterOTP from '../RegisterOTP'
-import { useAuthentication } from '../../../hooks/useAuthentication'
-import { UserLogin } from '../../../utils/models'
+import { Text, ImageBackground, Image, Alert, ScrollView } from 'react-native';
+import { 
+	maxHeightActually, 
+	maxWidthActually, 
+	defaultPaddingHorizontal 
+} from '../../../utils/sizes';
+import { Center, View, VStack, HStack, Input, Button } from 'native-base';
+import { FontSize } from '../../../utils/fontSize';
+import { systemColor, UIColor } from '../../../utils/colors';
+import { Icon } from '../../../themes/Icons/IconCustom';
+import React, { useState } from 'react';
+import Global from '../../../Global';
+import { useAuthentication } from '../../../hooks/useAuthentication';
+import { UserLogin } from '../../../utils/models';
+import { getLabel, validateEmail } from '../../../utils/commons';
 const Register = ({ }) => {
 
 	// check login information
@@ -25,51 +29,75 @@ const Register = ({ }) => {
 	// handle login
 	const handleRegister = () => {
 		if (!name) {
-			Alert.alert("Warning", "Please input your full name", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_name_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
 		if (!birthday) {
-			Alert.alert("Warning", "Please input your birthday", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_birthday_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
 		if (!cmnd) {
-			Alert.alert("Warning", "Please input your CMND", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_identity_card_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
 		if (!email) {
-			Alert.alert("Warning", "Please input your email", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_email_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
+		if ( ! validateEmail(email) ){
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_email_invalid'), 
+				[{ text: "OK" },]
+			);
+			return 
+		}
 		if (!province) {
-			Alert.alert("Warning", "Please input your province", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_province_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
 		if (!town) {
-			Alert.alert("Warning", "Please input your town", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_town_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
 		if (!address) {
-			Alert.alert("Warning", "Please input your address", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_address_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
 		if (!student) {
-			Alert.alert("Warning", "Please input your student", [
-				{ text: "OK" },
-			]);
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('register.msg_student_empty'), 
+				[{ text: "OK" },]
+			);
 			return ;
 		}
 		const user: UserLogin = {
@@ -90,6 +118,17 @@ const Register = ({ }) => {
 				top: 0,
 			}}
 		>
+			<Icon
+				onPress = {()=> Global.navigationRef?.navigate('InputPassword')}
+				name = 'long-arrow-left'
+				size={40}
+				style={{
+					position: 'absolute',
+					top: 30,
+					left: 20,
+					color: systemColor(UIColor.white)
+				}}
+			/>
 			<Image
 				source={require('../../../assets/images/logo_white.png')}
 				style={{
@@ -121,7 +160,7 @@ const Register = ({ }) => {
 							paddingRight: defaultPaddingHorizontal,
 							marginTop: maxHeightActually *0.04
 						}}
-					>Thông tin đăng ký</Text>
+					>{getLabel('register.label_register_information')}</Text>
 					<Text
 						style={{
 							paddingLeft: defaultPaddingHorizontal,
@@ -132,7 +171,7 @@ const Register = ({ }) => {
 							color: systemColor(UIColor.black2)
 						}}
 					>
-						Nhập thông tin để đăng ký tài khoản
+						{getLabel('register.label_register_information_detail')}
 					</Text>
 					<ScrollView
 						style={{
@@ -143,7 +182,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="Họ và tên"
+							placeholder={getLabel('register.placeholder_name')}
 							onChangeText={(value) => {
 								setName(value);
 							}}
@@ -156,7 +195,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="Ngày sinh"
+							placeholder={getLabel('register.placeholder_birthday')}
 							onChangeText={(value) => {
 								setBirthday(value);
 							}}
@@ -169,7 +208,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="CMND"
+							placeholder={getLabel('register.placeholder_identity_card')}
 							keyboardType='number-pad'
 							onChangeText={(value) => {
 								setCmnd(value);
@@ -183,7 +222,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="Email"
+							placeholder={getLabel('register.placeholder_email')}
 							onChangeText={(value) => {
 								setEmail(value);
 							}}
@@ -196,7 +235,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="Tỉnh/Thành phố"
+							placeholder={getLabel('register.placeholder_province')}
 							onChangeText={(value) => {
 								setProvince(value);
 							}}
@@ -209,7 +248,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="Quận/Huyện"
+							placeholder={getLabel('register.placeholder_town')}
 							onChangeText={(value) => {
 								setTown(value);
 							}}
@@ -222,7 +261,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="Địa chỉ"
+							placeholder={getLabel('register.placeholder_address')}
 							onChangeText={(value) => {
 								setAddress(value);
 							}}
@@ -235,7 +274,7 @@ const Register = ({ }) => {
 						<Input
 							size='md'
 							variant="underlined"
-							placeholder="Học sinh (Tên - Ngày sinh - Lớp)"
+							placeholder={getLabel('register.placeholder_student')}
 							onChangeText={(value) => {
 								setStudent(value);
 							}}
@@ -264,11 +303,10 @@ const Register = ({ }) => {
 							fontWeight: "600",
 							color: systemColor(UIColor.white)
 						}}
-					>Xác nhận</Text>
+					>{getLabel('register.btn_confirm')}</Text>
 				</Button>
 			</View>
 		</ImageBackground>
 	)
 }
-
 export default Register

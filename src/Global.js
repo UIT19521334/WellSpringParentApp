@@ -55,8 +55,8 @@ String.prototype.splice = function (startIndex, delCount, newSubStr) {
 }
 
 var Global = {
-    // locale: 'vn_vn',
-    locale: 'en_us',
+    locale: 'vn_vn',
+    // locale: 'en_us',
     deviceId: '',
     appName: Config.appName,
     appVersion: Platform.OS == 'ios' ? Config.appVersion.ios : Config.appVersion.android,
