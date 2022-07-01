@@ -7,45 +7,57 @@ import { Icon } from '../../themes/Icons/IconCustom'
 import React, { useState } from 'react'
 import userData from "../../assets/json/user.json"
 import Global from '../../Global'
+import { useAuthentication } from '../../hooks/useAuthentication'
+import { UserLogin } from '../../utils/models'
+import { getLabel } from '../../utils/commons';
 const LoginScene = ({}) => {
 
 	// get show password
-	const [showPass, setShowPass] = useState(false)
+	const [showPass, setShowPass] = useState<true|false>(false)
 
 	// check login information
-	const [phoneNumber, setPhoneNumber] = useState()
-	const [passWord, setPassWord] = useState()
+	const [phoneNumber, setPhoneNumber] = useState<String|null>("")
+	const [passWord, setPassWord] = useState<String|null>("");
+
+	const {signIn} = useAuthentication()
+
 
 	// handle login
-	const checkLogin = (user: any, pass: any) => {
-		if (user == userData[0].phonenumber) {
-			if (pass == userData[0].password) {
-				return true;
-			} else return false;
-		} else return false;
-	}
 	const handleLogin = () => {
-		if (phoneNumber) {
-			if (passWord) {
-				if (checkLogin(phoneNumber, passWord) == true) {
-					Alert.alert("Congrasulation", "Login success", [
-						{ text: "OK" },
-					]);
-				} else {
-					Alert.alert("Warning", "Your phone number/password incorrect", [
-						{ text: "OK" },
-					]);
-				}
-			} else {
-				Alert.alert("Warning", "Please input your password", [
-					{ text: "OK" },
-				]);
-			}
-		} else {
-			Alert.alert("Warning", "Please input your phone number", [
+
+		if (!phoneNumber) {
+			Alert.alert(getLabel('common.title_modal_notification_setting'), getLabel('login.phone_number_empty_msg'), [
 				{ text: "OK" },
 			]);
+			return;
 		}
+
+		if (!passWord) {
+			Alert.alert(getLabel('common.title_modal_notification_setting'), getLabel('login.password_empty_msg'), [
+				{ text: "OK" },
+			]);
+			return;
+		}
+
+		if (phoneNumber != userData[0].phonenumber) {
+			Alert.alert(getLabel('common.title_modal_notification_setting'), getLabel('login.phone_number_invalid_msg'), [
+				{ text: "OK" },
+			]);
+			return;
+		}
+
+		if (passWord != userData[0].password) {
+			Alert.alert(getLabel('common.title_modal_notification_setting'), getLabel('login.login_error_msg'), [
+				{ text: "OK" },
+			]);
+			return;
+		}
+		
+		signIn?.({
+			username: phoneNumber,
+			password: passWord
+		})
+			
 	};
 
 	return (
@@ -88,11 +100,11 @@ const LoginScene = ({}) => {
 							fontWeight: '900',
 							color: systemColor(UIColor.black)
 						}}
-					>Đăng nhập</Text>
+					>{getLabel('login.btn_sing_in')}</Text>
 					<Input
 						size='md'
 						variant="underlined"
-						placeholder="Nhập số điện thoại"
+						placeholder={getLabel('login.placeholder_phone_number')}
 						keyboardType='number-pad'
 						onChangeText={(value) => {
 							setPhoneNumber(value);
@@ -107,7 +119,7 @@ const LoginScene = ({}) => {
 					<Input
 						size='md'
 						variant="underlined"
-						placeholder="Nhập mật khẩu"
+						placeholder={getLabel('login.placeholder_password')}
 						type={showPass ? "text" : "password"}
 						onChangeText={(value) => {
 							setPassWord(value);
@@ -138,7 +150,7 @@ const LoginScene = ({}) => {
 								fontWeight: "600",
 								color: systemColor(UIColor.white)
 							}}
-						>Đăng nhập</Text>
+						>{getLabel('login.btn_sing_in')}</Text>
 					</Button>
 					<Button
 						onPress={() => Global.navigationRef?.navigate('ForgetPasswordScene')}
@@ -152,7 +164,7 @@ const LoginScene = ({}) => {
 								color: systemColor(UIColor.accent1),
 								marginTop: maxHeightActually * 0.02
 							}}
-						>Quên mật khẩu</Text>
+						>{getLabel('login.btn_forgot_your_password')}</Text>
 					</Button>
 					<Text
 						style={{

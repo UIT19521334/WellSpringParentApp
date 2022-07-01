@@ -7,67 +7,28 @@ import { Icon } from '../../../themes/Icons/IconCustom'
 import React, { useState } from 'react'
 import userData from "../../../assets/json/user.json"
 import Global from '../../../Global'
-import { getLabel } from '../../../utils/commons'
-const ForgetOTP = ({ }) => {
+const InputPassword = ({ }) => {
 
-	// check otp information
-	const [otp, setOTP] = useState()
+	// get show password
+	const [showNewPassword, setShowNewPassword] = useState<true|false>(false)
+	
 
-	// handle otp
+	// check login information
+	const [newPassword, setNewPassword] = useState<String|null>("")
+	
 
-	const handleOTP = () => {
-		if (!otp) {
-			Alert.alert(
-				getLabel('common.title_modal_notification_setting'), 
-				getLabel('forgot_password.msg_OTP_empty'), 
-				[{ text: "OK" },]
-			);
-			return;
-		} 
-		if (otp != '000000'){
-			Alert.alert(
-				getLabel('common.title_modal_notification_setting'), 
-				getLabel('forgot_password.msg_OTP_invalid'), 
-				[{ text: "OK" },]
-			);
-			return;
+	// handle login
+
+	const handleRegister = () => {
+		if (newPassword) {
+			Global.navigationRef?.navigate('Register')
+		} else {
+			Alert.alert("Warning", "Please input your new password", [
+				{ text: "OK" },
+			]);
 		}
-		if (timerRef.current < 0){
-			Alert.alert(
-				getLabel('common.title_modal_notification_setting'), 
-				getLabel('forgot_password.msg_OTP_expired'), 
-				[{ text: "OK" }, {
-					text:'Send new OTP',
-					onPress: ()=> timerRef.current = 120,
-				}]
-			);
-			return;
-		}
-		Global.navigationRef?.navigate('NewPassword')
 	};
 
-	// Time count down
-	const [min, setMin] = React.useState(2)
-	const [time1, setTime1] = React.useState(0);
-	const [time2, setTime2] = React.useState(0);
-
-	const timerRef = React.useRef(min * 60);
-
-	React.useEffect(() => {
-		const timerId = setInterval(() => {
-			timerRef.current -= 1;
-			if (timerRef.current < 0) {
-				clearInterval(timerId);
-			} else {
-				setMin( Math.floor(timerRef.current / 60) )
-				setTime1( Math.floor(timerRef.current / 10) % 6 )
-				setTime2(timerRef.current % 10);
-			}
-		}, 1000);
-		return () => {
-			clearInterval(timerId);
-		};
-	}, []);
 	return (
 		<ImageBackground
 			source={require('../../../assets/images/splash.jpg')}
@@ -79,7 +40,7 @@ const ForgetOTP = ({ }) => {
 			}}
 		>
 			<Icon
-				onPress = {()=> Global.navigationRef?.navigate('ForgetPasswordScene')}
+				onPress = {()=> Global.navigationRef?.navigate('RegisterOTP')}
 				name = 'long-arrow-left'
 				size={40}
 				style={{
@@ -119,8 +80,7 @@ const ForgetOTP = ({ }) => {
 							fontWeight: '900',
 							color: systemColor(UIColor.black)
 						}}
-					>
-						{getLabel('forgot_password.label_fogot_password_OTP')}</Text>
+					>Nhập mật khẩu mới</Text>
 					<Text
 						style={{
 							fontSize: FontSize.h5,
@@ -129,35 +89,36 @@ const ForgetOTP = ({ }) => {
 							color: systemColor(UIColor.black2)
 						}}
 					>
-						{getLabel('forgot_password.label_fogot_password_OTP_detail')}
+						Tạo mật khẩu mới để đăng nhập cho lần sau 
 					</Text>
 					<Input
 						size='md'
 						variant="underlined"
-						placeholder="000 000"
-						keyboardType='number-pad'
+						placeholder="Mật khẩu mới"
+						type={showNewPassword ? "text" : "password"}
 						onChangeText={(value) => {
-							setOTP(value);
+							setNewPassword(value);
 						}}
 						style={{
-							fontFamily: 'Roboto',
 							fontSize: FontSize.h4,
 							color: systemColor(UIColor.black),
 							marginTop: maxHeightActually * 0.02
 						}}
 						InputRightElement={
-							<Text
-								style={{
-									color: systemColor(UIColor.useful)
-								}}
-							>{min}:{time1}{time2}</Text>
+							<Button variant='unstyled' onPress={() => setShowNewPassword(!showNewPassword)} >
+								<Icon
+									name={showNewPassword ? "eye" : "eye-slash"}
+									size={20}
+								/>
+							</Button>
 						}
 					/>
+					
 					<Button
 						colorScheme='primary'
 						borderRadius={30}
 						marginTop={maxHeightActually * 0.04}
-						onPress={() => handleOTP()}
+						onPress={() => handleRegister()}
 					>
 						<Text
 							style={{
@@ -165,7 +126,7 @@ const ForgetOTP = ({ }) => {
 								fontWeight: "600",
 								color: systemColor(UIColor.white)
 							}}
-						>{getLabel('forgot_password.btn_continue')}</Text>
+						>Tiếp tục</Text>
 					</Button>
 				</View>
 			</View>
@@ -173,4 +134,4 @@ const ForgetOTP = ({ }) => {
 	)
 }
 
-export default ForgetOTP
+export default InputPassword

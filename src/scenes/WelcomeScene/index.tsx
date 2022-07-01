@@ -1,6 +1,6 @@
-import { View, Text, Image, ScrollView } from 'react-native'
-import React from 'react'
-import { HStack, VStack, Center, Box, Button } from 'native-base'
+import { View, Text, Image, ScrollView } from 'react-native';
+import React from 'react';
+import { HStack, VStack, Center, Box, Button } from 'native-base';
 import {
 	maxHeightActually,
 	maxWidthActually,
@@ -14,6 +14,8 @@ import { Logo, Intro1, Intro2, Intro3 } from '../../utils/images';
 import { FontSize } from '../../utils/fontSize';
 import { UIColor, systemColor } from '../../utils/colors';
 import styles from './styles';
+import Global from '../../Global';
+import { getLabel } from '../../utils/commons';
 
 function Start(props: any) {
 	return (
@@ -41,7 +43,7 @@ function Start(props: any) {
 }
 
 const WelcomeScene = ({navigation}) => {
-	const [bannerActive, SetBannerActive] = React.useState(0);
+	const [bannerActive, SetBannerActive] = React.useState<number|0>(0);
 	const onChange = (nativeEvent: any) => {
 		if (nativeEvent) {
 			const slide = Math.ceil(nativeEvent.contentOffset.x / nativeEvent.layoutMeasurement.width);
@@ -73,9 +75,9 @@ const WelcomeScene = ({navigation}) => {
 						style={{ maxHeight: maxHeightActually * 0.26 }}
 
 					>
-						<Start Intro={Intro1} Desc={"Theo dõi TKB, hoạt động hàng ngày của học sinh bao gồm điểm danh, xe buýt..."} />
-						<Start Intro={Intro2} Desc={"Cập nhật kết quả học tập, tin tức liên quan đến học sinh và nhà trường một cách nhanh chóng."} />
-						<Start Intro={Intro3} Desc={"Theo dõi suất ăn, đăng ký thực đơn hàng tháng cho học sinh"} />
+						<Start Intro={Intro1} Desc={getLabel('welcome.label_intro1')} />
+						<Start Intro={Intro2} Desc={getLabel('welcome.label_intro2')} />
+						<Start Intro={Intro3} Desc={getLabel('welcome.label_intro3')} />
 
 					</ScrollView>
 					<HStack
@@ -105,7 +107,8 @@ const WelcomeScene = ({navigation}) => {
 						fontWeight: '600',
 						marginTop: defineHeight20px * maxHeightActually *0.5
 					}}>
-					XIN CHÀO!
+					{/* {getLabel('common.msg_create_success', {module: 'aa'})} */}
+					{getLabel('welcome.label_hello')}
 				</Text>
 				<Text 
 					style={{
@@ -114,7 +117,7 @@ const WelcomeScene = ({navigation}) => {
 						fontWeight: '600',
 						marginTop: defineHeight20px * maxHeightActually * 0.5
 					}}>
-					Xin chào quý phụ huynh và các bạn học sinh
+					{getLabel('welcome.label_question')}
 				</Text>
 				
 				<VStack marginTop={5} space={4} justifyContent="space-between" >
@@ -129,9 +132,10 @@ const WelcomeScene = ({navigation}) => {
 								fontWeight: "600",
 								color: systemColor(UIColor.white)
 							}}
-						>Đăng nhập</Text>
+						>{getLabel('welcome.btn_login')}</Text>
 					</Button>
 					<Button 
+						onPress={() => Global.navigationRef?.navigate('RegisterScene')}
 						colorScheme='primary' 
 						variant='outline' 
 						borderRadius={50}
@@ -144,7 +148,7 @@ const WelcomeScene = ({navigation}) => {
 								fontWeight: "600",
 								color: systemColor(UIColor.accent1)
 							}}
-						>Đăng ký</Text>
+						>{getLabel('welcome.btn_register')}</Text>
 					</Button>
 				</VStack>
 				<Text

@@ -1,51 +1,33 @@
-import { Text, ImageBackground, Image, Alert } from 'react-native'
-import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal } from '../../utils/sizes'
-import { Center, View, VStack, HStack, Input, Button } from 'native-base'
-import { FontSize } from '../../utils/fontSize'
-import { systemColor, UIColor } from '../../utils/colors'
-import { Icon } from '../../themes/Icons/IconCustom'
-import React, { useState } from 'react'
-import userData from "../../assets/json/user.json"
-import Global from '../../Global'
-const RegisterScene = ({}) => {
+import { Text, ImageBackground, Image, Alert } from 'react-native';
+import { 
+	maxHeightActually, 
+	maxWidthActually, 
+	defaultPaddingHorizontal, 
+	avatarAbsoluteProfileHeight 
+} from '../../utils/sizes';
+import { Center, View, VStack, HStack, Input, Button } from 'native-base';
+import { FontSize } from '../../utils/fontSize';
+import { systemColor, UIColor } from '../../utils/colors';
+import { Icon } from '../../themes/Icons/IconCustom';
+import React, { useState } from 'react';
+import Global from '../../Global';
+import { getLabel } from '../../utils/commons';
+const RegisterScene = ({ }) => {
 
-	// get show password
-	const [showPass, setShowPass] = useState(false)
+	// check number information
+	const [phoneNumber, setPhoneNumber] = useState<String|null>("")
 
-	// check login information
-	const [phoneNumber, setPhoneNumber] = useState()
-	const [passWord, setPassWord] = useState()
-
-	// handle login
-	const checkLogin = (user, pass) => {
-		if (user == userData[0].phonenumber) {
-			if (pass == userData[0].password) {
-				return true;
-			} else return false;
-		} else return false;
-	}
-	const handleLogin = () => {
-		if (phoneNumber) {
-			if (passWord) {
-				if (checkLogin(phoneNumber, passWord) == true) {
-					Alert.alert("Congrasulation", "Login success", [
-						{ text: "OK" },
-					]);
-				} else {
-					Alert.alert("Warning", "Your phone number/password incorrect", [
-						{ text: "OK" },
-					]);
-				}
-			} else {
-				Alert.alert("Warning", "Please input your password", [
-					{ text: "OK" },
-				]);
-			}
-		} else {
-			Alert.alert("Warning", "Please input your phone number", [
-				{ text: "OK" },
-			]);
-		}
+	// handle next
+	const handleNext = () => {
+		if (!phoneNumber) {
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('forgot_password.phone_number_empty_msg'), 
+				[{ text: "OK" },]
+			);
+			return;
+		} 
+		Global.navigationRef?.navigate('RegisterOTP');
 	};
 
 	return (
@@ -58,6 +40,19 @@ const RegisterScene = ({}) => {
 				top: 0,
 			}}
 		>
+			
+				<Icon
+					onPress = {()=> Global.navigationRef?.navigate('WelcomeScene')}
+					name='long-arrow-left'
+					size={40}
+					style={{
+						position: 'absolute',
+						top: 30,
+						left: 20,
+						color: systemColor(UIColor.white)
+					}}
+				/>
+			
 			<Image
 				source={require('../../assets/images/logo_white.png')}
 				style={{
@@ -88,49 +83,36 @@ const RegisterScene = ({}) => {
 							fontWeight: '900',
 							color: systemColor(UIColor.black)
 						}}
-					>Đăng nhập</Text>
+					>{getLabel('register.label_welcome')}</Text>
+					<Text
+						style={{
+							fontSize: FontSize.h5,
+							fontWeight: '500',
+							marginTop: maxHeightActually * 0.01,
+							color: systemColor(UIColor.black2)
+						}}
+					>
+						{getLabel('register.label_enter_phone_number')}
+					</Text>
 					<Input
 						size='md'
 						variant="underlined"
-						placeholder="Nhập số điện thoại"
+						placeholder={getLabel('register.placeholder_phone_number')}
 						keyboardType='number-pad'
 						onChangeText={(value) => {
 							setPhoneNumber(value);
 						}}
 						style={{
-							fontFamily: 'Roboto',
 							fontSize: FontSize.h4,
 							color: systemColor(UIColor.black),
 							marginTop: maxHeightActually * 0.02
 						}}
-					/>
-					<Input
-						size='md'
-						variant="underlined"
-						placeholder="Nhập mật khẩu"
-						type={showPass ? "text" : "password"}
-						onChangeText={(value) => {
-							setPassWord(value);
-						}}
-						style={{
-							fontSize: FontSize.h4,
-							color: systemColor(UIColor.black),
-							marginTop: maxHeightActually * 0.02
-						}}
-						InputRightElement={
-							<Button variant='unstyled' onPress={() => setShowPass(!showPass)} >
-								<Icon
-									name={showPass ? "eye" : "eye-slash"}
-									size={20}
-								/>
-							</Button>
-						}
 					/>
 					<Button
 						colorScheme='primary'
 						borderRadius={30}
 						marginTop={maxHeightActually * 0.04}
-						onPress={()=>handleLogin()}
+						onPress={() => handleNext()}
 					>
 						<Text
 							style={{
@@ -138,27 +120,8 @@ const RegisterScene = ({}) => {
 								fontWeight: "600",
 								color: systemColor(UIColor.white)
 							}}
-						>Đăng nhập</Text>
+						>{getLabel('register.btn_continue')}</Text>
 					</Button>
-					<Text
-						style={{
-							fontSize: FontSize.h4,
-							fontWeight: "300",
-							textAlign: 'center',
-							color: systemColor(UIColor.accent1),
-							marginTop: maxHeightActually * 0.02
-						}}
-					>Quên mật khẩu</Text>
-					<Text
-						style={{
-							bottom: - maxHeightActually * 0.22,
-							color: systemColor(UIColor.black5),
-							fontSize: FontSize.h6,
-							textAlign: 'center',
-
-						}}>
-						Copyright @OnlineCRM
-					</Text>
 				</View>
 			</View>
 		</ImageBackground>

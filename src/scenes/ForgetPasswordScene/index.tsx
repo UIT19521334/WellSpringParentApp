@@ -1,31 +1,44 @@
 import { Text, ImageBackground, Image, Alert } from 'react-native'
-import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal } from '../../utils/sizes'
+import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal, avatarAbsoluteProfileHeight } from '../../utils/sizes'
 import { Center, View, VStack, HStack, Input, Button } from 'native-base'
 import { FontSize } from '../../utils/fontSize'
 import { systemColor, UIColor } from '../../utils/colors'
 import { Icon } from '../../themes/Icons/IconCustom'
 import React, { useState } from 'react'
-import userData from "../../assets/json/user.json"
+import userData from '../../assets/json/user.json'
 import Global from '../../Global'
+import { getLabel } from '../../utils/commons';
+
 const ForgetPasswordScene = ({ }) => {
 
-	// get show password
-	const [showPass, setShowPass] = useState(false)
-
 	// check login information
-	const [phoneNumber, setPhoneNumber] = useState()
+	const [phoneNumber, setPhoneNumber] = useState<String|null>('')
 
 	// handle login
 
 	const handleLogin = () => {
-		if (phoneNumber) {
-			Alert.alert("Warning", "Your phone number/password incorrect", [
-				{ text: "OK" },]);
-		} else {
-			Alert.alert("Warning", "Please input your phone number", [
-				{ text: "OK" },
-			]);
+		if (!phoneNumber) {
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('forgot_password.phone_number_empty_msg'), 
+				[{ text: "OK" },]
+			);
+			return ;
 		}
+		if (phoneNumber != userData[0].phonenumber){
+			Alert.alert(
+				getLabel('common.title_modal_notification_setting'), 
+				getLabel('forgot_password.phone_number_invalid_msg'), 
+				[{ text: "OK" },]
+			);
+			return ;
+		}
+		Alert.alert(
+			getLabel('common.title_modal_notification_setting'), 
+			getLabel('forgot_password.title_notification_sent_phone_number'), 
+			[{ text: "OK" },]
+		);
+		Global.navigationRef?.navigate('ForgetOTP');
 	};
 
 	return (
@@ -38,6 +51,19 @@ const ForgetPasswordScene = ({ }) => {
 				top: 0,
 			}}
 		>
+			
+				<Icon
+					onPress = {()=> Global.navigationRef?.navigate('LoginScene')}
+					name='long-arrow-left'
+					size={40}
+					style={{
+						position: 'absolute',
+						top: 30,
+						left: 20,
+						color: systemColor(UIColor.white)
+					}}
+				/>
+			
 			<Image
 				source={require('../../assets/images/logo_white.png')}
 				style={{
@@ -68,7 +94,7 @@ const ForgetPasswordScene = ({ }) => {
 							fontWeight: '900',
 							color: systemColor(UIColor.black)
 						}}
-					>Quên mật khẩu</Text>
+					>{getLabel('forgot_password.label_fogot_password')}</Text>
 					<Text
 						style={{
 							fontSize: FontSize.h5,
@@ -77,12 +103,12 @@ const ForgetPasswordScene = ({ }) => {
 							color: systemColor(UIColor.black2)
 						}}
 					>
-						Nhập số điện thoại để hệ thống gửi mã xác thực
+						{getLabel('forgot_password.label_input_phone_number')}
 					</Text>
 					<Input
 						size='md'
 						variant="underlined"
-						placeholder="Số điện thoại"
+						placeholder={getLabel('forgot_password.placeholder_phone_number')}
 						keyboardType='number-pad'
 						onChangeText={(value) => {
 							setPhoneNumber(value);
@@ -106,7 +132,7 @@ const ForgetPasswordScene = ({ }) => {
 								fontWeight: "600",
 								color: systemColor(UIColor.white)
 							}}
-						>Tiếp tục</Text>
+						>{getLabel('forgot_password.btn_continue')}</Text>
 					</Button>
 				</View>
 			</View>

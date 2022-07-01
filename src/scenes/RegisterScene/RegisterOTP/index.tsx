@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import userData from "../../../assets/json/user.json"
 import Global from '../../../Global'
 import { getLabel } from '../../../utils/commons'
-const ForgetOTP = ({ }) => {
+const RegisterOTP = ({ }) => {
 
 	// check otp information
 	const [otp, setOTP] = useState()
@@ -43,7 +43,7 @@ const ForgetOTP = ({ }) => {
 			);
 			return;
 		}
-		Global.navigationRef?.navigate('NewPassword')
+		Global.navigationRef?.navigate('InputPassword')
 	};
 
 	// Time count down
@@ -79,7 +79,7 @@ const ForgetOTP = ({ }) => {
 			}}
 		>
 			<Icon
-				onPress = {()=> Global.navigationRef?.navigate('ForgetPasswordScene')}
+				onPress = {()=> Global.navigationRef?.navigate('RegisterScene')}
 				name = 'long-arrow-left'
 				size={40}
 				style={{
@@ -173,4 +173,4 @@ const ForgetOTP = ({ }) => {
 	)
 }
 
-export default ForgetOTP
+export default RegisterOTP

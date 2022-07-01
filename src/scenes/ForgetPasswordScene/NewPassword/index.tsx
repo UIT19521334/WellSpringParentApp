@@ -5,69 +5,51 @@ import { FontSize } from '../../../utils/fontSize'
 import { systemColor, UIColor } from '../../../utils/colors'
 import { Icon } from '../../../themes/Icons/IconCustom'
 import React, { useState } from 'react'
-import userData from "../../../assets/json/user.json"
 import Global from '../../../Global'
 import { getLabel } from '../../../utils/commons'
-const ForgetOTP = ({ }) => {
+const NewPassword = ({ }) => {
 
-	// check otp information
-	const [otp, setOTP] = useState()
+	// get show password
+	const [showNewPassword, setShowNewPassword] = useState<true|false>(false)
+	const [showConfirmPassword, setShowConfirmPassword] = useState<true|false>(false)
 
-	// handle otp
+	// check login information
+	const [newPassword, setNewPassword] = useState<String|null>('')
+	const [confirmPassword, setConfirmPassword] = useState<String|null>('')
 
-	const handleOTP = () => {
-		if (!otp) {
+	// handle login
+	const handleLogin = () => {
+
+		if (!newPassword) {
 			Alert.alert(
 				getLabel('common.title_modal_notification_setting'), 
-				getLabel('forgot_password.msg_OTP_empty'), 
+				getLabel('forgot_password.msg_new_password_empty'), 
 				[{ text: "OK" },]
 			);
 			return;
 		} 
-		if (otp != '000000'){
+
+		if (!confirmPassword) {
 			Alert.alert(
 				getLabel('common.title_modal_notification_setting'), 
-				getLabel('forgot_password.msg_OTP_invalid'), 
+				getLabel('forgot_password.msg_confirm_new_password_empty'), 
 				[{ text: "OK" },]
 			);
 			return;
-		}
-		if (timerRef.current < 0){
+		} 
+
+		if (confirmPassword != newPassword) {
 			Alert.alert(
 				getLabel('common.title_modal_notification_setting'), 
-				getLabel('forgot_password.msg_OTP_expired'), 
-				[{ text: "OK" }, {
-					text:'Send new OTP',
-					onPress: ()=> timerRef.current = 120,
-				}]
+				getLabel('forgot_password.msg_password_invalid'), 
+				[{ text: "OK" },]
 			);
 			return;
-		}
-		Global.navigationRef?.navigate('NewPassword')
+		} 
+		
+		Global.navigationRef?.navigate('LoginScene');
 	};
 
-	// Time count down
-	const [min, setMin] = React.useState(2)
-	const [time1, setTime1] = React.useState(0);
-	const [time2, setTime2] = React.useState(0);
-
-	const timerRef = React.useRef(min * 60);
-
-	React.useEffect(() => {
-		const timerId = setInterval(() => {
-			timerRef.current -= 1;
-			if (timerRef.current < 0) {
-				clearInterval(timerId);
-			} else {
-				setMin( Math.floor(timerRef.current / 60) )
-				setTime1( Math.floor(timerRef.current / 10) % 6 )
-				setTime2(timerRef.current % 10);
-			}
-		}, 1000);
-		return () => {
-			clearInterval(timerId);
-		};
-	}, []);
 	return (
 		<ImageBackground
 			source={require('../../../assets/images/splash.jpg')}
@@ -79,7 +61,7 @@ const ForgetOTP = ({ }) => {
 			}}
 		>
 			<Icon
-				onPress = {()=> Global.navigationRef?.navigate('ForgetPasswordScene')}
+				onPress = {()=> Global.navigationRef?.navigate('ForgetOTP')}
 				name = 'long-arrow-left'
 				size={40}
 				style={{
@@ -119,8 +101,8 @@ const ForgetOTP = ({ }) => {
 							fontWeight: '900',
 							color: systemColor(UIColor.black)
 						}}
-					>
-						{getLabel('forgot_password.label_fogot_password_OTP')}</Text>
+					>{getLabel('forgot_password.label_enter_new_password')}</Text>
+
 					<Text
 						style={{
 							fontSize: FontSize.h5,
@@ -128,36 +110,57 @@ const ForgetOTP = ({ }) => {
 							marginTop: maxHeightActually * 0.01,
 							color: systemColor(UIColor.black2)
 						}}
-					>
-						{getLabel('forgot_password.label_fogot_password_OTP_detail')}
-					</Text>
+					>{getLabel('forgot_password.label_create_new_password')}</Text>
+
 					<Input
 						size='md'
 						variant="underlined"
-						placeholder="000 000"
-						keyboardType='number-pad'
+						placeholder={getLabel('forgot_password.placeholder_new_password')}
+						type={showNewPassword ? "text" : "password"}
 						onChangeText={(value) => {
-							setOTP(value);
+							setNewPassword(value);
 						}}
 						style={{
-							fontFamily: 'Roboto',
 							fontSize: FontSize.h4,
 							color: systemColor(UIColor.black),
 							marginTop: maxHeightActually * 0.02
 						}}
 						InputRightElement={
-							<Text
-								style={{
-									color: systemColor(UIColor.useful)
-								}}
-							>{min}:{time1}{time2}</Text>
+							<Button variant='unstyled' onPress={() => setShowNewPassword(!showNewPassword)} >
+								<Icon
+									name={showNewPassword ? "eye" : "eye-slash"}
+									size={20}
+								/>
+							</Button>
+						}
+					/>
+					<Input
+						size='md'
+						variant="underlined"
+						placeholder={getLabel('forgot_password.placeholder_confirm_new_password')}
+						type={ showConfirmPassword ? "text" : "password"}
+						onChangeText={(value) => {
+							setConfirmPassword(value);
+						}}
+						style={{
+							fontSize: FontSize.h4,
+							color: systemColor(UIColor.black),
+							marginTop: maxHeightActually * 0.02
+						}}
+						InputRightElement={
+							<Button variant='unstyled' onPress={() => setShowConfirmPassword(!showConfirmPassword)} >
+								<Icon
+									name={showConfirmPassword ? "eye" : "eye-slash"}
+									size={20}
+								/>
+							</Button>
 						}
 					/>
 					<Button
 						colorScheme='primary'
 						borderRadius={30}
 						marginTop={maxHeightActually * 0.04}
-						onPress={() => handleOTP()}
+						onPress={() => handleLogin()}
 					>
 						<Text
 							style={{
@@ -173,4 +176,4 @@ const ForgetOTP = ({ }) => {
 	)
 }
 
-export default ForgetOTP
+export default NewPassword

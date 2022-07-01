@@ -55,7 +55,8 @@ String.prototype.splice = function (startIndex, delCount, newSubStr) {
 }
 
 var Global = {
-    locale: 'vn_vn',
+    // locale: 'vn_vn',
+    locale: 'en_us',
     deviceId: '',
     appName: Config.appName,
     appVersion: Platform.OS == 'ios' ? Config.appVersion.ios : Config.appVersion.android,
@@ -286,6 +287,7 @@ var Global = {
 
         return number.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     },
+
     // Format date allow user format
     formatDate: function (date) {
         if (date) {
@@ -295,6 +297,7 @@ var Global = {
             return '';
         }
     },
+    
     // Format date time allow user format
     formatDateTime: function (date) {
         if (date) {

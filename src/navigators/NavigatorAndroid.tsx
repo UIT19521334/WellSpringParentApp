@@ -16,6 +16,12 @@ import WelcomeScene from "../scenes/WelcomeScene";
 import LoginScene from '../scenes/LoginScene';
 import HomeScene from '../scenes/HomeScene';
 import ForgetPasswordScene from '../scenes/ForgetPasswordScene/';
+import ForgetOTP from '../scenes/ForgetPasswordScene/ForgetOTP/';
+import NewPassword from '../scenes/ForgetPasswordScene/NewPassword';
+import RegisterScene from '../scenes/RegisterScene';
+import RegisterOTP from '../scenes/RegisterScene/RegisterOTP';
+import InputPassword from '../scenes/RegisterScene/InputPass';
+import Register from '../scenes/RegisterScene/Register/';
 const Stack = createStackNavigator();
 
 const UnAuthenticationStack = () => {
@@ -41,10 +47,30 @@ const UnAuthenticationStack = () => {
                 name='ForgetPasswordScene'
                 component={ForgetPasswordScene}
             />
+            <Stack.Screen
+                name='ForgetOTP'
+                component={ForgetOTP}
+            />
+            <Stack.Screen
+                name='NewPassword'
+                component={NewPassword}
+            />
 
             <Stack.Screen
                 name='RegisterScene'
-                component={View}
+                component={RegisterScene}
+            />
+            <Stack.Screen
+                name='RegisterOTP'
+                component={RegisterOTP}
+            />
+            <Stack.Screen
+                name='InputPassword'
+                component={InputPassword}
+            />
+            <Stack.Screen
+                name='Register'
+                component={Register}
             />
 
             <Stack.Screen
