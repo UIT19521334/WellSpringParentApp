@@ -6,8 +6,11 @@ import { systemColor, UIColor } from '../../../utils/colors'
 import { Icon } from '../../../themes/Icons/IconCustom'
 import React, { useState } from 'react'
 import Global from '../../../Global'
+import { useNavigation } from '@react-navigation/core'
 import { getLabel } from '../../../utils/commons'
 const NewPassword = ({ }) => {
+
+	const navigation = useNavigation()
 
 	// get show password
 	const [showNewPassword, setShowNewPassword] = useState<true|false>(false)
@@ -47,7 +50,7 @@ const NewPassword = ({ }) => {
 			return;
 		} 
 		
-		Global.navigationRef?.navigate('LoginScene');
+		navigation.navigate('LoginScene');
 	};
 
 	return (
@@ -61,7 +64,7 @@ const NewPassword = ({ }) => {
 			}}
 		>
 			<Icon
-				onPress = {()=> Global.navigationRef?.navigate('ForgetOTP')}
+				onPress = {()=> navigation.navigate('ForgetOTP')}
 				name = 'long-arrow-left'
 				size={40}
 				style={{

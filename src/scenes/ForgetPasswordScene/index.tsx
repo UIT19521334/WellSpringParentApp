@@ -1,21 +1,27 @@
 import { Text, ImageBackground, Image, Alert } from 'react-native'
-import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal, avatarAbsoluteProfileHeight } from '../../utils/sizes'
-import { Center, View, VStack, HStack, Input, Button } from 'native-base'
-import { FontSize } from '../../utils/fontSize'
-import { systemColor, UIColor } from '../../utils/colors'
-import { Icon } from '../../themes/Icons/IconCustom'
-import React, { useState } from 'react'
-import userData from '../../assets/json/user.json'
-import Global from '../../Global'
+import { 
+	maxHeightActually, 
+	maxWidthActually, 
+	defaultPaddingHorizontal, 
+	avatarAbsoluteProfileHeight 
+} from '../../utils/sizes'
+import { Center, View, VStack, HStack, Input, Button } from 'native-base';
+import { FontSize } from '../../utils/fontSize';
+import { systemColor, UIColor } from '../../utils/colors';
+import { Icon } from '../../themes/Icons/IconCustom';
+import React, { useState } from 'react';
+import * as userData from '../../assets/json/user.json';
 import { getLabel } from '../../utils/commons';
+import { useNavigation } from '@react-navigation/core';
 
 const ForgetPasswordScene = ({ }) => {
+
+	const navigation = useNavigation()
 
 	// check login information
 	const [phoneNumber, setPhoneNumber] = useState<String|null>('')
 
 	// handle login
-
 	const handleLogin = () => {
 		if (!phoneNumber) {
 			Alert.alert(
@@ -38,7 +44,7 @@ const ForgetPasswordScene = ({ }) => {
 			getLabel('forgot_password.title_notification_sent_phone_number'), 
 			[{ text: "OK" },]
 		);
-		Global.navigationRef?.navigate('ForgetOTP');
+		navigation.navigate('ForgetOTP');
 	};
 
 	return (
@@ -53,7 +59,7 @@ const ForgetPasswordScene = ({ }) => {
 		>
 			
 				<Icon
-					onPress = {()=> Global.navigationRef?.navigate('LoginScene')}
+					onPress = {()=> navigation.navigate('LoginScene')}
 					name='long-arrow-left'
 					size={40}
 					style={{

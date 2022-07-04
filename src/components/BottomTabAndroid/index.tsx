@@ -115,7 +115,10 @@ const BottomTabAndroid = () => {
 		}
 	}, [tabSelected]);
 	return (
-		<View>
+		<View
+			position='absolute'
+			bottom={0}
+		>
 			<Center
 				style={{
 					marginBottom: -40
@@ -126,7 +129,8 @@ const BottomTabAndroid = () => {
 					backgroundColor={systemColor(UIColor.accent1)}
 					borderRadius={1000}
 					style={{
-
+						position:'absolute',
+						bottom: 10
 					}}
 				>
 					<Icon
@@ -146,7 +150,7 @@ const BottomTabAndroid = () => {
 					<Path
 						fill={systemColor(UIColor.white)}
 						stroke={systemColor(UIColor.black8)}
-						strokeWidth={0} {...{ d }}
+						strokeWidth={1} {...{ d }}
 						strokeLinecap='round'
 						strokeLinejoin='round'
 						strokeDasharray={[0, (maxWidthActually * .2 - 24 > 55 ? 54 : 52), 0]}

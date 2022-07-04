@@ -4,14 +4,16 @@ import { Center, View, VStack, HStack, Input, Button } from 'native-base'
 import { FontSize } from '../../../utils/fontSize'
 import { systemColor, UIColor } from '../../../utils/colors'
 import { Icon } from '../../../themes/Icons/IconCustom'
-import React, { useState } from 'react'
-import userData from "../../../assets/json/user.json"
-import Global from '../../../Global'
-import { getLabel } from '../../../utils/commons'
+import React, { useState } from 'react';
+import Global from '../../../Global';
+import { getLabel } from '../../../utils/commons';
+import { useNavigation } from '@react-navigation/core'
 const ForgetOTP = ({ }) => {
 
+	const navigation = useNavigation()
+	
 	// check otp information
-	const [otp, setOTP] = useState()
+	const [otp, setOTP] = useState<String|null>('')
 
 	// handle otp
 
@@ -43,7 +45,7 @@ const ForgetOTP = ({ }) => {
 			);
 			return;
 		}
-		Global.navigationRef?.navigate('NewPassword')
+		navigation.navigate('NewPassword')
 	};
 
 	// Time count down
@@ -79,7 +81,7 @@ const ForgetOTP = ({ }) => {
 			}}
 		>
 			<Icon
-				onPress = {()=> Global.navigationRef?.navigate('ForgetPasswordScene')}
+				onPress = {()=> navigation.navigate('ForgetPasswordScene')}
 				name = 'long-arrow-left'
 				size={40}
 				style={{
