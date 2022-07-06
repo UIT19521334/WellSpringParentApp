@@ -1,25 +1,26 @@
-import { Text, ImageBackground, Image, Alert } from 'react-native'
-import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal } from '../../utils/sizes'
-import { Center, View, VStack, HStack, Input, Button } from 'native-base'
-import { FontSize } from '../../utils/fontSize'
-import { systemColor, UIColor } from '../../utils/colors'
-import { Icon } from '../../themes/Icons/IconCustom'
-import React, { useState } from 'react'
-import userData from "../../assets/json/user.json"
-import Global from '../../Global'
-import { useAuthentication } from '../../hooks/useAuthentication'
-import { UserLogin } from '../../utils/models'
+import { Text, ImageBackground, Image, Alert } from 'react-native';
+import { maxHeightActually, maxWidthActually, defaultPaddingHorizontal } from '../../utils/sizes';
+import { Center, View, VStack, HStack, Input, Button } from 'native-base';
+import { FontSize } from '../../utils/fontSize';
+import { systemColor, UIColor } from '../../utils/colors';
+import { Icon } from '../../themes/Icons/IconCustom';
+import React, { useEffect, useState } from 'react';
+import userData from "../../assets/json/user.json";
+import Global from '../../Global';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import { getLabel } from '../../utils/commons';
-const LoginScene = ({}) => {
+import { useNavigation } from '@react-navigation/core';
+const LoginScene = ({ }) => {
 
+	const navigation = useNavigation();
 	// get show password
-	const [showPass, setShowPass] = useState<true|false>(false)
+	const [showPass, setShowPass] = useState<true | false>(false)
 
 	// check login information
-	const [phoneNumber, setPhoneNumber] = useState<String|null>("")
-	const [passWord, setPassWord] = useState<String|null>("");
+	const [phoneNumber, setPhoneNumber] = useState<String | null>("")
+	const [passWord, setPassWord] = useState<String | null>("");
 
-	const {signIn} = useAuthentication()
+	const { signIn } = useAuthentication()
 
 
 	// handle login
@@ -52,14 +53,14 @@ const LoginScene = ({}) => {
 			]);
 			return;
 		}
-		
+
 		signIn?.({
 			username: phoneNumber,
 			password: passWord
 		})
-			
-	};
 
+	};
+	
 	return (
 		<ImageBackground
 			source={require('../../assets/images/splash.jpg')}
@@ -102,7 +103,7 @@ const LoginScene = ({}) => {
 						}}
 					>{getLabel('login.btn_sing_in')}</Text>
 					<Input
-						size='md'
+						// size='md'
 						variant="underlined"
 						placeholder={getLabel('login.placeholder_phone_number')}
 						keyboardType='number-pad'
@@ -110,17 +111,17 @@ const LoginScene = ({}) => {
 							setPhoneNumber(value);
 						}}
 						style={{
-							fontFamily: 'Roboto',
 							fontSize: FontSize.h4,
 							color: systemColor(UIColor.black),
 							marginTop: maxHeightActually * 0.02
 						}}
 					/>
 					<Input
-						size='md'
+						// size='md'
 						variant="underlined"
 						placeholder={getLabel('login.placeholder_password')}
-						type={showPass ? "text" : "password"}
+						// type={showPass ? "text" : "password"}
+						secureTextEntry={showPass ? false : true}
 						onChangeText={(value) => {
 							setPassWord(value);
 						}}
@@ -130,6 +131,8 @@ const LoginScene = ({}) => {
 							marginTop: maxHeightActually * 0.02
 						}}
 						InputRightElement={
+							passWord =='' ? 
+							undefined : 
 							<Button variant='unstyled' onPress={() => setShowPass(!showPass)} >
 								<Icon
 									name={showPass ? "eye" : "eye-slash"}
@@ -153,7 +156,7 @@ const LoginScene = ({}) => {
 						>{getLabel('login.btn_sing_in')}</Text>
 					</Button>
 					<Button
-						onPress={() => Global.navigationRef?.navigate('ForgetPasswordScene')}
+						onPress={() => navigation.navigate('ForgetPasswordScene')}
 						variant='unstyled'
 					>
 						<Text

@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { getLabel } from '../../utils/commons';
 import { Icon } from '../../themes/Icons/IconCustom';
 import { HStack, VStack, View, Center, Button } from 'native-base';
@@ -10,6 +10,7 @@ import { systemColor, UIColor } from '../../utils/colors';
 import Svg, { Path } from 'react-native-svg';
 import { FontSize } from '../../utils/fontSize';
 import * as shape from 'd3-shape';
+import ChangeStudent from './ChangeStudent';
 
 // draw path function
 const getPath = (width: number, height: number, centerWidth: number, borderTopLeftRight: boolean = false) => {
@@ -88,8 +89,9 @@ const BottomTabAndroid = () => {
 
 	let boderHeight = 70;
 	const [tabSelected, setTabSelected] = React.useState<'HOME' | 'CONTACT' | 'NOTIFICATION' | 'ACCOUNT'>('HOME');
-	const d = getPath(maxWidthActually, boderHeight, 60, true);
-	const navigation = useNavigation()
+	const d = getPath(maxWidthActually, boderHeight, 68, true);
+	const navigation = useNavigation();
+
 	// handleChageTab
 	const handleChangeTab = React.useCallback((tab: 'HOME' | 'CONTACT' | 'NOTIFICATION' | 'ACCOUNT' | 'CHANGE_STUDENT') => {
 
@@ -114,6 +116,12 @@ const BottomTabAndroid = () => {
 			setTabSelected(tab)
 		}
 	}, [tabSelected]);
+
+	// handleShowChageStudent
+	const [show, setShow] = useState<true | false>(false);
+	const handleCloseModel = () => {
+		setShow(false);
+	}
 	return (
 		<View
 			position='absolute'
@@ -124,24 +132,31 @@ const BottomTabAndroid = () => {
 					marginBottom: -40
 				}}
 			>
-				<Button
-					variant='unstyled'
-					backgroundColor={systemColor(UIColor.accent1)}
-					borderRadius={1000}
-					style={{
-						position:'absolute',
-						bottom: 10
-					}}
+
+				<View
+					backgroundColor={systemColor(UIColor.accent8)}
+					borderRadius='full'
+					padding={1}
+
 				>
-					<Icon
-						name='user'
-						size={30}
-						color={systemColor(UIColor.white)}
-						style={{
-							padding: 10,
-						}}
-					/>
-				</Button>
+					<Button
+						onPress={() => setShow(true)}
+						variant='unstyled'
+						backgroundColor={systemColor(UIColor.accent1)}
+						borderRadius='full'
+
+					>
+						<Icon
+							name='user'
+							size={30}
+							color={systemColor(UIColor.white)}
+							style={{
+								padding: 10,
+							}}
+						/>
+					</Button>
+				</View>
+
 			</Center>
 
 			{/* Create a bottom view */}
@@ -153,8 +168,8 @@ const BottomTabAndroid = () => {
 						strokeWidth={1} {...{ d }}
 						strokeLinecap='round'
 						strokeLinejoin='round'
-						strokeDasharray={[0, (maxWidthActually * .2 - 24 > 55 ? 54 : 52), 0]}
-						strokeDashoffset={12}
+					//strokeDasharray={[0, (maxWidthActually * .2 - 24 > 55 ? 54 : 52), 0]}
+					//strokeDashoffset={12}
 					/>
 				</Svg>
 			</View>
@@ -162,7 +177,7 @@ const BottomTabAndroid = () => {
 			<Center
 				style={{
 					position: 'absolute',
-					bottom: -10
+					bottom: -10,
 				}}
 			>
 				<HStack
@@ -180,7 +195,7 @@ const BottomTabAndroid = () => {
 							<Icon
 								name='home'
 								size={20}
-								color={ tabSelected == 'HOME' ? systemColor(UIColor.accent) : systemColor(UIColor.black3) }
+								color={tabSelected == 'HOME' ? systemColor(UIColor.accent) : systemColor(UIColor.black3)}
 							/>
 							<Text
 								style={{
@@ -257,6 +272,11 @@ const BottomTabAndroid = () => {
 					</TouchableOpacity>
 				</HStack>
 			</Center>
+			<ChangeStudent
+				title={getLabel('student.title_student')}
+				isShow={show}
+				handleClose={handleCloseModel}
+			/>
 		</View>
 	)
 }

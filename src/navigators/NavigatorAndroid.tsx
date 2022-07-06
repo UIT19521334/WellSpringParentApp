@@ -26,6 +26,11 @@ import RegisterOTP from '../scenes/RegisterScene/RegisterOTP';
 import InputPassword from '../scenes/RegisterScene/InputPass';
 import Register from '../scenes/RegisterScene/Register/';
 import BottomTabAndroid from '../components/BottomTabAndroid';
+import ListNew from '../scenes/HomeScene/ListNews';
+import NewsDetail from '../scenes/HomeScene/NewsDetail';
+import BusScene from '../scenes/BusScene';
+import OnleaveScene from '../scenes/OnleaveScene';
+import CreateLeave from '../scenes/OnleaveScene/CreateLeave';
 const Stack = createStackNavigator();
 
 const UnAuthenticationStack = () => {
@@ -44,7 +49,7 @@ const UnAuthenticationStack = () => {
             <Stack.Screen
                 name='LoginScene'
                 component={LoginScene}
-                
+
             />
 
             <Stack.Screen
@@ -100,21 +105,12 @@ const AuthenticationStack = () => {
                 gestureEnabled: true,
             }}
         >
-             <Stack.Screen
+            <Stack.Screen
                 name='MainStack'
                 component={MainStack}
             />
-            {/*
-            <Stack.Screen
-                name='LeavingFormScene'
-                component={LeavingFormScene}
-                options={({ route, navigation }) => {
-                    return {
-                        headerShown: false,
-                        gestureEnabled: true,
-                    }
-                }}
-            /> */}
+
+
 
         </Stack.Navigator>
     )
@@ -136,7 +132,7 @@ const MainStack = () => {
 
 
             >
-                 <Stack.Screen
+                <Stack.Screen
                     name='HomeScene'
                     component={HomeScene}
                     options={{
@@ -171,7 +167,42 @@ const MainStack = () => {
                         gestureEnabled: false,
                     }}
                 />
-{/*
+                <Stack.Screen
+                    name='ListNews'
+                    component={ListNew}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='NewsDetail'
+                    component={NewsDetail}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='BusScene'
+                    component={BusScene}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='OnleaveScene'
+                    component={OnleaveScene}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='CreateLeave'
+                    component={CreateLeave}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                {/*
                 <Stack.Screen
                     name='AboutScene'
                     component={AboutScene}

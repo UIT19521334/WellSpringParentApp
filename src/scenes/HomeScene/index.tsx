@@ -80,26 +80,30 @@ const HomeScene = () => {
 						>
 							{getLabel('home.label_news')}
 						</Text>
-						<HStack
-							alignItems='center'
+						<TouchableOpacity
+							onPress={()=> navigation.navigate('ListNews')}
 						>
-							<Text
-								style={{
-									fontSize: FontSize.h5,
-									fontWeight: '500',
-									color: systemColor(UIColor.accent),
-									marginRight: 10
-
-								}}
+							<HStack
+								alignItems='center'
 							>
-								{getLabel('home.label_all')}
-							</Text>
-							<Icon
-								name='angle-right'
-								size={20}
-								color={systemColor(UIColor.accent)}
-							/>
-						</HStack>
+								<Text
+									style={{
+										fontSize: FontSize.h5,
+										fontWeight: '500',
+										color: systemColor(UIColor.accent),
+										marginRight: 10
+
+									}}
+								>
+									{getLabel('home.label_all')}
+								</Text>
+								<Icon
+									name='angle-right'
+									size={20}
+									color={systemColor(UIColor.accent)}
+								/>
+							</HStack>
+						</TouchableOpacity>
 					</HStack>
 					<HomeNews />
 					<HomeNews />

@@ -8,11 +8,13 @@ import { getLabel } from '../../../../utils/commons'
 import { Icon } from '../../../../themes/Icons/IconCustom'
 
 const Lesson = (props: any) => {
+	let lessonData = props.lessonTitle + props.lessonCount + '- ' + props.content;
 	return (
 		<TouchableOpacity
 			style={{
 				marginTop: 20
 			}}
+			onPress={()=> props?.handleLessonPress({lessonData})}
 		>
 			<HStack>
 				<View
@@ -70,3 +72,5 @@ const styles = StyleSheet.create({
 		color: systemColor(UIColor.accent)
 	},
 })
+
+

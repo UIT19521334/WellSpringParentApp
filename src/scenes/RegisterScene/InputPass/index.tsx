@@ -5,12 +5,12 @@ import { FontSize } from '../../../utils/fontSize';
 import { systemColor, UIColor } from '../../../utils/colors';
 import { Icon } from '../../../themes/Icons/IconCustom';
 import React, { useState } from 'react';
-import userData from "../../../assets/json/user.json";
 import Global from '../../../Global';
 import { getLabel } from '../../../utils/commons';
-
+import { useNavigation } from '@react-navigation/core'
 const InputPassword = ({ }) => {
 
+	const navigation = useNavigation();
 	// get show password
 	const [showNewPassword, setShowNewPassword] = useState<true|false>(false)
 	
@@ -27,7 +27,7 @@ const InputPassword = ({ }) => {
 			);
 			return;	
 		} 
-		Global.navigationRef?.navigate('Register')
+		navigation.navigate('Register')
 	};
 
 	return (
@@ -41,7 +41,7 @@ const InputPassword = ({ }) => {
 			}}
 		>
 			<Icon
-				onPress = {()=> Global.navigationRef?.navigate('RegisterOTP')}
+				onPress = {()=> navigation.navigate('RegisterOTP')}
 				name = 'long-arrow-left'
 				size={40}
 				style={{
@@ -106,6 +106,8 @@ const InputPassword = ({ }) => {
 							marginTop: maxHeightActually * 0.02
 						}}
 						InputRightElement={
+							newPassword =='' ? 
+							undefined : 
 							<Button variant='unstyled' onPress={() => setShowNewPassword(!showNewPassword)} >
 								<Icon
 									name={showNewPassword ? "eye" : "eye-slash"}

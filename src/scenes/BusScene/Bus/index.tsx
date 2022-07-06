@@ -1,44 +1,50 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, HStack, Button } from 'native-base';
+import { View, HStack, Button, VStack, Center } from 'native-base';
 import { Icon } from '../../../themes/Icons/IconCustom';
 import { systemColor, UIColor } from '../../../utils/colors';
-import { maxHeightActually, maxWidthActually } from '../../../utils/sizes';
+import { defaultPaddingHorizontal, maxHeightActually, maxWidthActually } from '../../../utils/sizes';
 import { FontSize } from '../../../utils/fontSize';
 import Global from '../../../Global';
 import { getLabel } from '../../../utils/commons';
-import Lesson from './Lesson';
-import Lessondetail from './LessonDetail';
+import Lesson from '../../HomeScene/HomeSchedule/Lesson';
+import Lessondetail from '../../HomeScene/HomeSchedule/LessonDetail';
 import DateTimePicker from '@react-native-community/datetimepicker';
-const HomeSchedule = () => {
+import BusComponent from './BusComponent';
+
+const Bus = () => {
+
+	// bus information 
+	const [information, setInformation] = useState<true|false>(true);
 
 	// Day select
 	const [day, setDay] = useState<'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY'>('TUESDAY');
 
+	// handleChangeDay
 	const handleChangeDay = React.useCallback((day: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY') => {
 		switch (day) {
 			case 'MONDAY':
-				console.log("MONDAY")
+				setInformation(true);
 				break;
 
 			case 'TUESDAY':
-				console.log("TUESDAY")
+				setInformation(false);
 				break;
 
 			case 'WEDNESDAY':
-				console.log("WEDNESDAY")
+				setInformation(true);
 				break;
 
 			case 'THURSDAY':
-				console.log("THURSDAY")
+				setInformation(false);
 				break;
 
 			case 'FRIDAY':
-				console.log("FRIDAY")
+				setInformation(true);
 				break;
 
 			case 'SATURDAY':
-				console.log("SATURDAY")
+				setInformation(false);
 				break;
 
 		}
@@ -46,17 +52,21 @@ const HomeSchedule = () => {
 	}, [day]);
 
 	// handleModel
-	const [showLesson, setShowLesson] = useState<true | false>(false);
+	const [showDetail, setshowDetail] = useState<true | false>(false);
 	const handleClose = () => {
-		setShowLesson(false);
+		setshowDetail(false);
 	}
 
-	// handleLesson
-	const [lesson, setLesson] = useState<String | null>('');
-	const handleLessonPress = (value: any) => {
-		setShowLesson(true);
-		setLesson(value.lessonData);
+	// handleTitle
+	const [attend, setAttend] = useState<true | false>(true);
+	const [title, setTitle] = useState<String | null>('');
+
+	const handleAttend = (value: any, attend: any) => {
+		setshowDetail(true);
+		setTitle(value);
+		setAttend(attend);
 	}
+
 
 	// datetime picker
 	const [mode, setMode] = useState('date');
@@ -82,9 +92,8 @@ const HomeSchedule = () => {
 		showMode('date');
 	};
 
-
 	// ChangeDay
-	const handleSetDay = (value: string) => {
+	const handlehandleChangeDay = (value: string) => {
 		let day1 = new Date(startDate);
 		let day2 = new Date(endDate);
 		if (value == 'up') {
@@ -105,17 +114,21 @@ const HomeSchedule = () => {
 	return (
 		<View>
 			<HStack
-				marginTop={4}
+				paddingTop={4}
+				paddingBottom={4}
 				alignItems='center'
 				justifyContent='space-between'
+				backgroundColor={systemColor(UIColor.white)}
+				paddingLeft={defaultPaddingHorizontal}
+				paddingRight={defaultPaddingHorizontal}
 			>
 				<TouchableOpacity
-					onPress={() => handleSetDay('down')}
+					onPress={() => handlehandleChangeDay('down')}
 					style={{
 						paddingLeft: 10,
 						paddingRight: 10,
 						borderRadius: 1000,
-						backgroundColor: systemColor(UIColor.black9)
+						backgroundColor: systemColor(UIColor.black8)
 					}}
 				>
 					<Icon
@@ -129,21 +142,21 @@ const HomeSchedule = () => {
 				>
 					<Text
 						style={{
-							fontSize: FontSize.h5,
+							fontSize: FontSize.h4,
 							fontWeight: 'bold',
-							color: systemColor(UIColor.black)
+							color: systemColor(UIColor.accent)
 						}}
 					>
 						{Global.formatDate(startDate)} - {Global.formatDate(endDate)}
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => handleSetDay('up')}
+					onPress={() => handlehandleChangeDay('up')}
 					style={{
 						paddingLeft: 10,
 						paddingRight: 10,
 						borderRadius: 1000,
-						backgroundColor: systemColor(UIColor.black9)
+						backgroundColor: systemColor(UIColor.black8)
 					}}
 				>
 					<Icon
@@ -153,14 +166,20 @@ const HomeSchedule = () => {
 					/>
 				</TouchableOpacity>
 			</HStack>
+			<Center
+				backgroundColor={systemColor(UIColor.white)}
+				paddingLeft={defaultPaddingHorizontal}
+				paddingRight={defaultPaddingHorizontal}
+			>
 			<HStack
 				space={6}
 				alignItems='center'
 				justifyContent='space-between'
-				marginTop={2}
+				paddingTop={2}
+				paddingBottom={4}
 			>
 				<TouchableOpacity
-					onPress={() => setDay('MONDAY')}
+					onPress={() => handleChangeDay('MONDAY')}
 					style={day == 'MONDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'MONDAY' ? styles.focusText : styles.unfocusText}>
@@ -168,7 +187,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('TUESDAY')}
+					onPress={() => handleChangeDay('TUESDAY')}
 					style={day == 'TUESDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'TUESDAY' ? styles.focusText : styles.unfocusText}>
@@ -176,7 +195,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('WEDNESDAY')}
+					onPress={() => handleChangeDay('WEDNESDAY')}
 					style={day == 'WEDNESDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'WEDNESDAY' ? styles.focusText : styles.unfocusText}>
@@ -184,7 +203,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('THURSDAY')}
+					onPress={() => handleChangeDay('THURSDAY')}
 					style={day == 'THURSDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'THURSDAY' ? styles.focusText : styles.unfocusText}>
@@ -192,7 +211,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('FRIDAY')}
+					onPress={() => handleChangeDay('FRIDAY')}
 					style={day == 'FRIDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'FRIDAY' ? styles.focusText : styles.unfocusText}>
@@ -200,7 +219,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('SATURDAY')}
+					onPress={() => handleChangeDay('SATURDAY')}
 					style={day == 'SATURDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'SATURDAY' ? styles.focusText : styles.unfocusText}>
@@ -208,86 +227,12 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 			</HStack>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 1: '}
-				time={'08:00 - 08:40'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 2: '}
-				time={'08:45 - 09:25'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 3: '}
-				time={'09:35 - 10:15'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 4: '}
-				time={'10:20 - 11:00'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 5: '}
-				time={'11:10 - 11:50'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				type={'break'}
-				time={'11:50 - 12:45'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 6: '}
-				time={'12:50 - 13:30'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 7: '}
-				time={'13:35 - 14:45'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				type={'break'}
-				time={'14:15 - 14:30'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 8: '}
-				time={'14:30 - 15:10'}
-				content={'Luyen tu va va'}
-			/>
-			<Lesson
-				handleLessonPress={handleLessonPress}
-				lessonTitle={getLabel('home.label_lesson')}
-				lessonCount={' 9: '}
-				time={'15:15 - 15:55'}
-				content={'Luyen tu va va'}
-			/>
-			<Lessondetail
-				title={lesson}
-				isShow={showLesson}
-				handleClose={handleClose}
-			/>
+			</Center>
+			<View
+				marginTop={2}
+			>
+				<BusComponent isInformation={information}/>
+			</View>
 			{show && (
 				<DateTimePicker
 					testID="dateTimePicker"
@@ -296,16 +241,26 @@ const HomeSchedule = () => {
 					onChange={onChange}
 				/>
 			)}
-			<View height={maxHeightActually * 0.30}>
+			<View 
+				backgroundColor={systemColor(UIColor.white)}
+				height={maxHeightActually * 0.30}>
 			</View>
 		</View>
 	)
 }
 
-export default HomeSchedule
+export default Bus
 
 
 const styles = StyleSheet.create({
+	attend: {
+		color: systemColor(UIColor.accent),
+		fontSize:FontSize.h5,
+	},
+	unattend: {
+		color: systemColor(UIColor.useful),
+		fontSize:FontSize.h5,
+	},
 	focus: {
 		width: maxWidthActually * 0.1,
 		height: maxWidthActually * 0.1,
@@ -328,4 +283,5 @@ const styles = StyleSheet.create({
 		color: systemColor(UIColor.black),
 		fontSize: FontSize.h5
 	}
+
 })

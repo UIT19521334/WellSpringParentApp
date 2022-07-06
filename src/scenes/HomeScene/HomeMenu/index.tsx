@@ -5,8 +5,9 @@ import { getLabel } from '../../../utils/commons'
 import { FontSize } from '../../../utils/fontSize'
 import { defaultPaddingHorizontal, headerAbsoluteHeight, maxWidthActually } from '../../../utils/sizes'
 import { systemColor, UIColor } from '../../../utils/colors'
-
+import { useNavigation } from '@react-navigation/core'
 const HomeMenu = () => {
+	const navigation = useNavigation();
 	return (
 		<View
 			paddingLeft={defaultPaddingHorizontal}
@@ -46,6 +47,7 @@ const HomeMenu = () => {
 					justifyContent='space-between'
 				>
 					<TouchableOpacity
+						onPress={()=> navigation.navigate('OnleaveScene')}
 						style={{
 							backgroundColor: systemColor(UIColor.brand1),
 							borderRadius: 12,
@@ -69,6 +71,7 @@ const HomeMenu = () => {
 					justifyContent='space-between'
 				>
 					<TouchableOpacity
+						onPress={()=> navigation.navigate('BusScene')}
 						style={{
 							backgroundColor: systemColor(UIColor.brand2),
 							borderRadius: 12,
