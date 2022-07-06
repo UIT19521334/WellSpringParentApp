@@ -208,7 +208,7 @@ const CreateLeave = () => {
 				/>
 				<Text style={[styles.titlle, { marginTop: 16 }]}>{getLabel('onleave.title_onleave_attach')}</Text>
 				<HStack>
-					<Image source={require('../../../assets/images/avatar.jpg')}
+					<Image source={require('../../../assets/images/demo.jpg')}
 						style={{
 							width: maxWidthActually *0.28,
 							resizeMode: 'contain',
