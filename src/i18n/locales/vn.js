@@ -376,6 +376,16 @@ export default {
         title_student: 'Thay đổi học sinh',
         label_watch_student_info:'Xem thông tin theo học sinh:',
         label_school:'Trường:',
+        label_PHHS: 'Thông tin phụ huynh - học sinh',
+        label_student_info: 'Thông tin học sinh',
+        label_profile:'Hồ sơ cá nhân',
+        label_setting:'Cài đặt',
+        label_support:'Hỗ trợ',
+        btn_change_password:'Thay đổi mật khẩu',
+        btn_notifi : 'Thông báo',
+        btn_contact: 'Liên hệ',
+        btn_about_us: 'Về chúng tôi',
+        btn_logout:'Đăng xuất'
     },
     meal: {
         label_breakfast:'Bữa sáng',

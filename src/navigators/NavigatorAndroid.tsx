@@ -35,6 +35,7 @@ import OnleaveDetail from '../scenes/OnleaveScene/OnleaveDetail';
 import LearningOutcomes from '../scenes/LearningScene';
 import MenuFoodScene from '../scenes/MenuFoodScene';
 import FoodRegister from '../scenes/MenuFoodScene/FoodRegister';
+import Profile from '../scenes/AccountScene/Profile';
 const Stack = createStackNavigator();
 
 const UnAuthenticationStack = () => {
@@ -116,6 +117,10 @@ const AuthenticationStack = () => {
             <Stack.Screen
                 name='CreateLeave'
                 component={CreateLeave}
+            />
+            <Stack.Screen
+                name='Profile'
+                component={Profile}
             />
         </Stack.Navigator>
     )

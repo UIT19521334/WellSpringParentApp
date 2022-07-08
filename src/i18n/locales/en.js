@@ -366,6 +366,16 @@ export default {
         label_school:'School:',
         label_overall_scoreboard:'Overall scoreboard',
         label_subject_score_sheet:'Subject score sheet',
+        label_PHHS: 'Parent-student information',
+        label_student_info: 'Student information',
+        label_profile:'Profile',
+        label_setting:'Setting',
+        label_support:'Support',
+        btn_change_password:'Change password',
+        btn_notifi : 'Notification',
+        btn_contact: 'Contact',
+        btn_about_us: 'About us',
+        btn_logout:'Log out'
     },
     meal: {
         label_breakfast:'Breakfast',

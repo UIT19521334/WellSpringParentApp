@@ -53,7 +53,7 @@ const HomeScene = () => {
 								fontWeight: '700'
 							}}
 						>
-							{getLabel('home.label_hello', { name: 'chị Nguyễn Minh Thùy' })}
+							{getLabel('home.label_hello', { name: 'chị Nguyễn Thị Minh Thùy' })}
 						</Text>
 					</HStack>
 				</View>
