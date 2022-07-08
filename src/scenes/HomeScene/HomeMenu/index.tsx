@@ -26,6 +26,7 @@ const HomeMenu = () => {
 					width={maxWidthActually * 0.2}
 				>
 					<TouchableOpacity
+						onPress={()=>navigation.navigate('LearningOutcomes')}
 						style={{
 							backgroundColor: systemColor(UIColor.brand),
 							borderRadius: 12,
@@ -96,6 +97,7 @@ const HomeMenu = () => {
 					justifyContent='space-between'
 				>
 					<TouchableOpacity
+						onPress={()=>navigation.navigate('MenuFoodScene')}
 						style={{
 							backgroundColor: systemColor(UIColor.brand3),
 							borderRadius: 12,

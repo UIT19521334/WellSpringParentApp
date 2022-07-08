@@ -102,7 +102,9 @@ const OnleaveScene = () => {
 					</Center>
 					:
 					<View>
-						<TouchableOpacity>
+						<TouchableOpacity
+							onPress={()=>navigation.navigate('OnleaveDetail')}
+						>
 							<HStack
 								padding={defaultPaddingHorizontal}
 								backgroundColor={systemColor(UIColor.white)}
@@ -143,6 +145,7 @@ const OnleaveScene = () => {
 							</HStack>
 						</TouchableOpacity>
 						<TouchableOpacity
+							onPress={()=>navigation.navigate('OnleaveDetail')}
 							style={{marginTop: 10}}
 						>
 							<HStack
@@ -185,6 +188,7 @@ const OnleaveScene = () => {
 							</HStack>
 						</TouchableOpacity>
 						<TouchableOpacity
+							onPress={()=>navigation.navigate('OnleaveDetail')}
 							style={{marginTop: 10}}
 						>
 							<HStack

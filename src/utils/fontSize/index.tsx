@@ -10,4 +10,5 @@ export const FontSize = {
     h6: isIPad ? 620  * .0335 : WidthDevice * .0335,
     h7: isIPad ? 620  * .028206 : WidthDevice * .028206,
     h8: isIPad ? 620  * .0256411 : WidthDevice * .0256411,
+    h65: isIPad ? 620  * .031 : WidthDevice * .031,
 };

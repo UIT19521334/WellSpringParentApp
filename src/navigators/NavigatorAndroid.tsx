@@ -31,6 +31,10 @@ import NewsDetail from '../scenes/HomeScene/NewsDetail';
 import BusScene from '../scenes/BusScene';
 import OnleaveScene from '../scenes/OnleaveScene';
 import CreateLeave from '../scenes/OnleaveScene/CreateLeave';
+import OnleaveDetail from '../scenes/OnleaveScene/OnleaveDetail';
+import LearningOutcomes from '../scenes/LearningScene';
+import MenuFoodScene from '../scenes/MenuFoodScene';
+import FoodRegister from '../scenes/MenuFoodScene/FoodRegister';
 const Stack = createStackNavigator();
 
 const UnAuthenticationStack = () => {
@@ -109,9 +113,10 @@ const AuthenticationStack = () => {
                 name='MainStack'
                 component={MainStack}
             />
-
-
-
+            <Stack.Screen
+                name='CreateLeave'
+                component={CreateLeave}
+            />
         </Stack.Navigator>
     )
 }
@@ -196,8 +201,29 @@ const MainStack = () => {
                     }}
                 />
                 <Stack.Screen
-                    name='CreateLeave'
-                    component={CreateLeave}
+                    name='OnleaveDetail'
+                    component={OnleaveDetail}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='LearningOutcomes'
+                    component={LearningOutcomes}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='MenuFoodScene'
+                    component={MenuFoodScene}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='FoodRegister'
+                    component={FoodRegister}
                     options={{
                         gestureEnabled: false,
                     }}

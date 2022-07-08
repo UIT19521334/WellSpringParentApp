@@ -15,34 +15,34 @@ const HomeSchedule = () => {
 	// Day select
 	const [day, setDay] = useState<'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY'>('TUESDAY');
 
-	const handleChangeDay = React.useCallback((day: 'MONDAY' | 'TUESDAY' | 'WEDNESDAY' | 'THURSDAY' | 'FRIDAY' | 'SATURDAY') => {
+	const handleChangeDay = React.useCallback((day) => {
 		switch (day) {
-			case 'MONDAY':
-				console.log("MONDAY")
+			case 1:
+				setDay('MONDAY');
 				break;
 
-			case 'TUESDAY':
-				console.log("TUESDAY")
+			case 2:
+				setDay('TUESDAY');
 				break;
 
-			case 'WEDNESDAY':
-				console.log("WEDNESDAY")
+			case 3:
+				setDay('WEDNESDAY');
 				break;
 
-			case 'THURSDAY':
-				console.log("THURSDAY")
+			case 4:
+				setDay('THURSDAY');
 				break;
 
-			case 'FRIDAY':
-				console.log("FRIDAY")
+			case 5:
+				setDay('FRIDAY');
 				break;
 
-			case 'SATURDAY':
-				console.log("SATURDAY")
+			case 6:
+				setDay('SATURDAY');
 				break;
 
 		}
-		setDay(day)
+		
 	}, [day]);
 
 	// handleModel
@@ -63,23 +63,27 @@ const HomeSchedule = () => {
 	const [show, setShow] = useState(false);
 	const [startDate, setStartDate] = useState(new Date("07/04/2022"));
 	const [endDate, setEndDate] = useState(new Date("07/09/2022"));
+	const [thisDate, setThisDate] = useState(new Date);
 
 	const onChange = (event: any, selectedDate: any) => {
-		const currentDate = selectedDate;
+		const curr = selectedDate;
 		setShow(false);
-		let day = new Date(currentDate);
-		day.setDate(day.getDate() + 5);
-		setEndDate(day);
-		setStartDate(currentDate);
+		setThisDate(curr);
+		handleChangeDate(curr);
+		handleChangeDay(curr.getDay())
 	};
-
-	const showMode = (currentMode: any) => {
-		setShow(true);
-		setMode(currentMode);
-	};
-
+	const handleChangeDate = (curr: any) =>{
+		var first = curr.getDate() - curr.getDay() + 1; 
+		var last = first + 5;
+		let day = new Date(curr);
+		let day2 = new Date(curr);
+		day.setDate(first);
+		setStartDate(day);
+		day2.setDate(last);
+		setEndDate(day2);
+	}
 	const showDatepicker = () => {
-		showMode('date');
+		setShow(true);
 	};
 
 
@@ -102,6 +106,11 @@ const HomeSchedule = () => {
 			return;
 		}
 	}
+	useEffect(() => {
+		handleChangeDate(thisDate);
+		handleChangeDay(thisDate.getDay())
+	  return;
+	}, []);
 	return (
 		<View>
 			<HStack
@@ -160,7 +169,7 @@ const HomeSchedule = () => {
 				marginTop={2}
 			>
 				<TouchableOpacity
-					onPress={() => setDay('MONDAY')}
+					onPress={() => handleChangeDay(1)}
 					style={day == 'MONDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'MONDAY' ? styles.focusText : styles.unfocusText}>
@@ -168,7 +177,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('TUESDAY')}
+					onPress={() => handleChangeDay(2)}
 					style={day == 'TUESDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'TUESDAY' ? styles.focusText : styles.unfocusText}>
@@ -176,7 +185,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('WEDNESDAY')}
+					onPress={() => handleChangeDay(3)}
 					style={day == 'WEDNESDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'WEDNESDAY' ? styles.focusText : styles.unfocusText}>
@@ -184,7 +193,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('THURSDAY')}
+					onPress={() => handleChangeDay(4)}
 					style={day == 'THURSDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'THURSDAY' ? styles.focusText : styles.unfocusText}>
@@ -192,7 +201,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('FRIDAY')}
+					onPress={() => handleChangeDay(5)}
 					style={day == 'FRIDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'FRIDAY' ? styles.focusText : styles.unfocusText}>
@@ -200,7 +209,7 @@ const HomeSchedule = () => {
 					</Text>
 				</TouchableOpacity>
 				<TouchableOpacity
-					onPress={() => setDay('SATURDAY')}
+					onPress={() => handleChangeDay(6)}
 					style={day == 'SATURDAY' ? styles.focus : styles.unfocus}
 				>
 					<Text style={day == 'SATURDAY' ? styles.focusText : styles.unfocusText}>
@@ -291,7 +300,7 @@ const HomeSchedule = () => {
 			{show && (
 				<DateTimePicker
 					testID="dateTimePicker"
-					value={startDate}
+					value={thisDate}
 					is24Hour={true}
 					onChange={onChange}
 				/>
