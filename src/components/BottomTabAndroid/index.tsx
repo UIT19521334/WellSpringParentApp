@@ -96,7 +96,8 @@ const BottomTabAndroid = () => {
 	const [amount, setAmount] = useState();
 	DeviceEventEmitter.addListener('countNotification', (event) => {
 		if (event) {
-			setAmount(event.amount)
+			if (event.amount !='')
+				setAmount(event.amount)
 		}
 	});
 	let boderHeight = 70;
@@ -249,21 +250,25 @@ const BottomTabAndroid = () => {
 						<VStack
 							space={2}
 							alignItems='center'>
-							<Text
-								style={{
-									backgroundColor: systemColor(UIColor.useful1),
-									color: systemColor(UIColor.white),
-									position: 'absolute',
-									paddingLeft: 6,
-									paddingRight: 6,
-									fontSize: FontSize.h8,
-									borderRadius: 30,
-									top: 0,
-									left: 35,
-								}}
-							>
-								{amount}
-							</Text>
+							{
+								amount ?
+									<Text
+										style={{
+											backgroundColor: systemColor(UIColor.useful1),
+											color: systemColor(UIColor.white),
+											position: 'absolute',
+											paddingLeft: 6,
+											paddingRight: 6,
+											fontSize: FontSize.h8,
+											borderRadius: 30,
+											top: 0,
+											left: 35,
+										}}
+									>
+										{amount}
+									</Text>
+								: undefined
+							}
 							<Icon
 
 								name='bell'
