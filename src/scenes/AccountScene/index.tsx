@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { Alert, DeviceEventEmitter, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { View, Button, HStack , ScrollView } from 'native-base'
 import { Icon } from '../../themes/Icons/IconCustom'
@@ -8,6 +8,7 @@ import { getLabel } from '../../utils/commons'
 import { defaultPaddingHorizontal, headerAbsoluteHeight, maxWidthActually } from '../../utils/sizes'
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useNavigation } from '@react-navigation/core';
+
 const AccountContent = (props: any) => {
 	const navigation = useNavigation();
 	let screen = props.screen ;
@@ -31,6 +32,10 @@ const AccountContent = (props: any) => {
 		}
 		if (screen == 'AboutUs'){
 			navigation.navigate('AboutUs');
+			return;
+		}
+		if (screen == 'ContactScene'){
+			navigation.navigate('ContactScene');
 			return;
 		}
 	}
@@ -122,7 +127,7 @@ const AccountScene = () => {
 				<AccountContent icon={'bell'} content={getLabel('student.btn_notifi')} screen='NotifiSetting' />
 
 				<Text style={styles.title}>{getLabel('student.label_support')}</Text>
-				<AccountContent icon={'headset'} content={getLabel('student.btn_contact')} />
+				<AccountContent icon={'headset'} content={getLabel('student.btn_contact') } screen = 'ContactScene' />
 				<AccountContent icon={'info-circle'} content={getLabel('student.btn_about_us')} screen='AboutUs' />
 
 				{/* Button logout */}

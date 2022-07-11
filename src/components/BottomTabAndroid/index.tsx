@@ -1,5 +1,5 @@
-import { Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { DeviceEventEmitter, Text, TouchableOpacity } from 'react-native'
+import React, { useState, useContext } from 'react';
 import { getLabel } from '../../utils/commons';
 import { Icon } from '../../themes/Icons/IconCustom';
 import { HStack, VStack, View, Center, Button } from 'native-base';
@@ -87,6 +87,18 @@ const getPath = (width: number, height: number, centerWidth: number, borderTopLe
 
 const BottomTabAndroid = () => {
 
+	DeviceEventEmitter.addListener('inContractScene', (event) => {
+		if (event) {
+			setTabSelected('CONTACT');
+		}
+	});
+	// amount notifi
+	const [amount, setAmount] = useState();
+	DeviceEventEmitter.addListener('countNotification', (event) => {
+		if (event) {
+			setAmount(event.amount)
+		}
+	});
 	let boderHeight = 70;
 	const [tabSelected, setTabSelected] = React.useState<'HOME' | 'CONTACT' | 'NOTIFICATION' | 'ACCOUNT'>('HOME');
 	const d = getPath(maxWidthActually, boderHeight, 68, true);
@@ -108,7 +120,6 @@ const BottomTabAndroid = () => {
 				case 'NOTIFICATION':
 					navigation.navigate('NotificationScene');
 					break;
-
 				default:
 					navigation.navigate('HomeScene');
 					break;
@@ -238,6 +249,21 @@ const BottomTabAndroid = () => {
 						<VStack
 							space={2}
 							alignItems='center'>
+							<Text
+								style={{
+									backgroundColor: systemColor(UIColor.useful1),
+									color: systemColor(UIColor.white),
+									position: 'absolute',
+									paddingLeft: 6,
+									paddingRight: 6,
+									fontSize: FontSize.h8,
+									borderRadius: 30,
+									top: 0,
+									left: 35,
+								}}
+							>
+								{amount}
+							</Text>
 							<Icon
 
 								name='bell'
@@ -250,6 +276,7 @@ const BottomTabAndroid = () => {
 									color: tabSelected == 'NOTIFICATION' ? systemColor(UIColor.accent) : systemColor(UIColor.black3)
 								}}
 							>{getLabel('bottom_tab.tab_notification')}</Text>
+
 						</VStack>
 					</TouchableOpacity>
 					<TouchableOpacity

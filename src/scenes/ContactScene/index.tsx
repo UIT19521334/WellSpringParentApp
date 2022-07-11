@@ -1,5 +1,5 @@
-import { Alert, StyleSheet, Text, TouchableOpacity, Linking } from 'react-native'
-import React from 'react'
+import { Alert, StyleSheet, Text, TouchableOpacity, Linking, DeviceEventEmitter } from 'react-native'
+import React, { useState } from 'react'
 import { View, Button, HStack, VStack, Center } from 'native-base'
 import { Icon } from '../../themes/Icons/IconCustom'
 import { systemColor, UIColor } from '../../utils/colors'
@@ -55,6 +55,7 @@ const Contact = (props:any) => {
 
 const ContactScene = () => {
 	const navigation = useNavigation();
+	DeviceEventEmitter.emit('inContractScene', { message: "CONTACT"});
 	return (
 		<View>
 			{/* Title */}

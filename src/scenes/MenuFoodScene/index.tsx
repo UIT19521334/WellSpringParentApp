@@ -11,9 +11,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Global from '../../Global'
 import MenuComponent from './MenuComponent'
-import Breakfast from '../../assets/json/breakfast.json';
-import Lunch from '../../assets/json/lunch.json';
-import Snack from '../../assets/json/snack.json';
+import mealDATA from '../../assets/json/meal.json';
 const MenuFoodScene = () => {
 	const navigation = useNavigation();
 	const [isNull, setIsNull] = useState<true | false>(false);
@@ -271,12 +269,12 @@ const MenuFoodScene = () => {
 				</HStack>
 			</Center>
 			<ScrollView>
-				<MenuComponent type='breakfast' data={Breakfast} />
+				<MenuComponent type='breakfast' data={mealDATA[0].breakfast} />
 				<View marginTop={2} >
-					<MenuComponent type='lunch' data={Lunch} />
+					<MenuComponent type='lunch' data={mealDATA[0].lunch} />
 				</View>
 				<View marginTop={2} >
-					<MenuComponent type='snack' data={Snack} />
+					<MenuComponent type='snack' data={mealDATA[0].snack} />
 				</View>
 				<View height={"80"} />
 			</ScrollView>

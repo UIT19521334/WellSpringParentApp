@@ -131,11 +131,13 @@ export default function Setup() {
                 <AuthenticationManager>
                     <ModalBottomConfirmManager>
                         {/* <ModalBottomConfirm> */}
+                          
                             <Host>
                                 <Provider store={store}>
                                     <Navigator />
                                 </Provider>
                             </Host>
+                          
                         {/* </ModalBottomConfirm> */}
                     </ModalBottomConfirmManager>
                 </AuthenticationManager>
