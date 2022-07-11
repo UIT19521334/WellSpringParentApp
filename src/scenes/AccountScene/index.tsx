@@ -1,12 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { Alert, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { View, Button, HStack } from 'native-base'
+import { View, Button, HStack , ScrollView } from 'native-base'
 import { Icon } from '../../themes/Icons/IconCustom'
 import { systemColor, UIColor } from '../../utils/colors'
 import { FontSize } from '../../utils/fontSize'
 import { getLabel } from '../../utils/commons'
 import { defaultPaddingHorizontal, headerAbsoluteHeight, maxWidthActually } from '../../utils/sizes'
-import { ScrollView } from 'react-native-gesture-handler'
 import { useAuthentication } from '../../hooks/useAuthentication';
 import { useNavigation } from '@react-navigation/core';
 const AccountContent = (props: any) => {
@@ -15,6 +14,23 @@ const AccountContent = (props: any) => {
 	const handleScreen = () =>{
 		if (screen == 'Profile'){
 			navigation.navigate('Profile');
+			return;
+		}
+
+		if (screen == 'StudentProfile'){
+			navigation.navigate('StudentProfile');
+			return;
+		}
+		if (screen == 'ChangePass'){
+			navigation.navigate('ChangePass');
+			return;
+		}
+		if (screen == 'NotifiSetting'){
+			navigation.navigate('NotifiSetting');
+			return;
+		}
+		if (screen == 'AboutUs'){
+			navigation.navigate('AboutUs');
 			return;
 		}
 	}
@@ -52,7 +68,11 @@ const AccountContent = (props: any) => {
 const AccountScene = () => {
 	const { signOut } = useAuthentication();
 	const handleSignout = () =>{
-		signOut?.();
+		Alert.alert(
+			getLabel('common.title_modal_notification_setting'), 
+			getLabel('sidebar.alert_logout_msg'), 
+			[{ text: "OK", onPress: () => signOut?.()},{text: "Cancel"}]
+		);
 	}
 	return (
 		<View>
@@ -95,16 +115,17 @@ const AccountScene = () => {
 			<ScrollView>
 				<Text style={styles.title}>{getLabel('student.label_PHHS')}</Text>
 				<AccountContent icon={'user'} content={getLabel('student.label_profile')} screen='Profile' />
-				<AccountContent icon={'users'} content={getLabel('student.label_student_info')} />
+				<AccountContent icon={'users'} content={getLabel('student.label_student_info')} screen='StudentProfile'  />
 
-				<Text style={styles.title}>{getLabel('student.label_setting')}</Text>
-				<AccountContent icon={'key'} content={getLabel('student.btn_change_password')} />
-				<AccountContent icon={'bell'} content={getLabel('student.btn_notifi')} />
+				<Text style={styles.title}>{getLabel('student.label_setting')}  </Text>
+				<AccountContent icon={'key'} content={getLabel('student.btn_change_password')} screen='ChangePass' />
+				<AccountContent icon={'bell'} content={getLabel('student.btn_notifi')} screen='NotifiSetting' />
 
 				<Text style={styles.title}>{getLabel('student.label_support')}</Text>
 				<AccountContent icon={'headset'} content={getLabel('student.btn_contact')} />
-				<AccountContent icon={'info-circle'} content={getLabel('student.btn_about_us')} />
+				<AccountContent icon={'info-circle'} content={getLabel('student.btn_about_us')} screen='AboutUs' />
 
+				{/* Button logout */}
 				<TouchableOpacity
 					onPress={()=>handleSignout()}
 					style={{
@@ -123,7 +144,9 @@ const AccountScene = () => {
 							}} >{getLabel('student.btn_logout')}</Text>
 					</HStack>
 				</TouchableOpacity>
-				<View height='56' />
+
+				{/* Cách bottom một khoảng = view */}
+				<View height='56' /> 
 			</ScrollView>
 
 		</View>

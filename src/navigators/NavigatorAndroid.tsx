@@ -36,6 +36,10 @@ import LearningOutcomes from '../scenes/LearningScene';
 import MenuFoodScene from '../scenes/MenuFoodScene';
 import FoodRegister from '../scenes/MenuFoodScene/FoodRegister';
 import Profile from '../scenes/AccountScene/Profile';
+import StudentProfile from '../scenes/AccountScene/StudentProfile';
+import ChangePass from '../scenes/AccountScene/ChangePass';
+import NotifiSetting from '../scenes/AccountScene/NotifiSetting';
+import AboutUs from '../scenes/AccountScene/AboutUs';
 const Stack = createStackNavigator();
 
 const UnAuthenticationStack = () => {
@@ -121,6 +125,10 @@ const AuthenticationStack = () => {
             <Stack.Screen
                 name='Profile'
                 component={Profile}
+            />
+            <Stack.Screen
+                name='ChangePass'
+                component={ChangePass}
             />
         </Stack.Navigator>
     )
@@ -229,6 +237,27 @@ const MainStack = () => {
                 <Stack.Screen
                     name='FoodRegister'
                     component={FoodRegister}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='StudentProfile'
+                    component={StudentProfile}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='NotifiSetting'
+                    component={NotifiSetting}
+                    options={{
+                        gestureEnabled: false,
+                    }}
+                />
+                <Stack.Screen
+                    name='AboutUs'
+                    component={AboutUs}
                     options={{
                         gestureEnabled: false,
                     }}

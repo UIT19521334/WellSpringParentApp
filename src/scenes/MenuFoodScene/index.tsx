@@ -6,7 +6,7 @@ import { systemColor, UIColor } from '../../utils/colors'
 import { FontSize } from '../../utils/fontSize'
 import { Icon } from '../../themes/Icons/IconCustom'
 import { defaultPaddingHorizontal, headerAbsoluteHeight, maxHeightActually, maxWidthActually } from '../../utils/sizes'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/core';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Global from '../../Global'
