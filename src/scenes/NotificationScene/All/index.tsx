@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, FlatList ,ScrollView} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { defaultPaddingHorizontal } from '../../../utils/sizes';
 import { systemColor, UIColor } from '../../../utils/colors';
 import { FontSize } from '../../../utils/fontSize';
@@ -7,10 +7,27 @@ import { getLabel } from '../../../utils/commons';
 import DATA from '../../../assets/json/notification.json';
 import Component from '../Component';
 
-const All = () => {
+const All = (props : any) => {
+
+
+	// count
+	let amountNotifi = DATA.length;
+	const handleIsRead = () =>{
+		amountNotifi --;
+		props.setNotifi(amountNotifi);
+		console.log('voday?');
+	}
+
+	// Check all read;
+	const [allRead, setallRead] = useState(false);
+	const handleSetAllRead = () =>{
+		setallRead(true);
+		props.setNotifi(0);
+	}
 	return (
 		<View>
 			<TouchableOpacity
+				onPress={handleSetAllRead}
 				style={{
 					padding: defaultPaddingHorizontal,
 					backgroundColor: systemColor(UIColor.white)
@@ -29,7 +46,7 @@ const All = () => {
 			<ScrollView >
 				{
 					DATA.map((item: any,index: any)=>
-						<Component data={item} key={index} />
+						<Component allRead={allRead} data={item} key={index} handleIsRead={handleIsRead} />
 					)
 				}
 				<View style={{height: 420}}/>

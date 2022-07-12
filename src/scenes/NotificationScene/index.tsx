@@ -18,15 +18,17 @@ const NotificationScene = () => {
 
 	const navigation = useNavigation();
 
+	
 	// notification amount
-	const [all, setAll] = useState(9);
+	const [all, setAll] = useState(2);
+
 	const [study, setStudy] = useState(4);
 	const [service, setService] = useState(4);
 	const [fee, setFee] = useState(0);
 	const [news, setNews] = useState(5);
 
 	// notification position (focus) 
-	const [position, setPosition] = useState(1);
+	const [position, setPosition] = useState(0);
 	
 	return (
 		<View>
@@ -138,7 +140,7 @@ const NotificationScene = () => {
 			</View>
 			{/* Body */}
 			{
-				position == 0 ? <All/> : undefined
+				position == 0 ? <All setNotifi = {setAll} count = {all} /> : undefined
 			}
 			{
 				position == 1 ? <Study/> : undefined

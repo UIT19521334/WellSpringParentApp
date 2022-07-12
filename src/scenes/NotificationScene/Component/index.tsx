@@ -1,5 +1,5 @@
 import { StyleSheet, Text, Touchable, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, HStack } from 'native-base';
 import { defaultPaddingHorizontal, maxWidthActually } from '../../../utils/sizes';
 import { systemColor, UIColor } from '../../../utils/colors';
@@ -7,9 +7,23 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FontSize } from '../../../utils/fontSize';
 const Component = (props: any) => {
 	const data = props.data;
+	const [isRead, setIsRead] = useState(data.isRead);
+	const handleRead = () =>{
+		if (!isRead){
+			props.handleIsRead();
+			setIsRead(true);
+		}
+	}
+	useEffect(() => {
+		if (props.allRead){
+			setIsRead(true);
+		} else
+			if (isRead) props.handleIsRead();
+	  return;
+	}, [props.allRead]);
 	return (
 		<TouchableOpacity
-				
+			onPress={()=>handleRead()}
 		>
 			<View
 				marginTop={2}
@@ -26,16 +40,16 @@ const Component = (props: any) => {
 						<FontAwesome
 							name='newspaper-o'
 							size={maxWidthActually * 0.04}
-							color={data.isRead ? systemColor(UIColor.black8) : systemColor(UIColor.accent)}
+							color={isRead ? systemColor(UIColor.black8) : systemColor(UIColor.accent)}
 						/>
-						<Text style={ data.isRead ? styles.title_Read : styles.title }>{data.title}</Text>
+						<Text style={ isRead ? styles.title_Read : styles.title }>{data.title}</Text>
 						{
-							data.isRead ? undefined : <Text style={{color:'red', marginLeft: 4}} >●</Text>
+							isRead ? undefined : <Text style={{color:'red', marginLeft: 4}} >●</Text>
 						}
 					</HStack>
-					<Text style={data.isRead ? styles.datetime_Read :styles.datetime} >{data.dateTime}</Text>
+					<Text style={isRead ? styles.datetime_Read :styles.datetime} >{data.dateTime}</Text>
 				</HStack>
-				<Text style={data.isRead ? styles.desc_Read : styles.desc} >{data.desc}</Text>
+				<Text style={isRead ? styles.desc_Read : styles.desc} >{data.desc}</Text>
 			</View>
 		</TouchableOpacity>
 	)
